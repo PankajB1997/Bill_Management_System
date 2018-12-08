@@ -1,0 +1,26 @@
+{
+  "name": "app_001",
+  "version": "1.0.0",
+  "description": "\"# app_001\"",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.7.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongojs": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PankajB1997/app_001.git"
+  },
+  "author": "Pankaj Bhootra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PankajB1997/app_001/issues"
+  },
+  "homepage": "https://github.com/PankajB1997/app_001#readme"
+}
