@@ -1,17 +1,21 @@
 <!DOCTYPE>
 <html ng-app="billManager">
     <head>
-        <title>Bill Manager</title>
+        <title>Himalaya | Bill Manager</title>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" />
     </head>
     <body style="background-color: #FFFFF0 !important">
-        <div class="container">
-            <div>
-                <img src="himalaya.png" width="200" height="50" style="float: right"/>
-                <h1>Bill Manager</h1>
+        <header id="header" class="header-panel affix-top">
+            <div class="container">
+                <div class="row">
+                    <img src="himalaya.png" width="200" height="68" style="float: left"/>
+                    <h1>&nbsp;&nbsp;Bill Management System</h1>
+                    <hr>
+                </div>
             </div>
-            <hr>
+        </header>
+        <div class="container">
             <div ng-view></div>
         </div>
 
