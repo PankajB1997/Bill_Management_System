@@ -21,6 +21,7 @@
 
             <div class="form-group">
                 <select name="pageSize" class="form-control list-box" ng-model="vm.search.pageSize">
+                    <option value="" disabled selected>Limit</option>
                     <option value="10" selected="selected">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
@@ -39,6 +40,7 @@
 
 <table class="table table-hover">
     <tr>
+        <th>No.</th>
         <th>First name</th>
         <th>Middle name</th>
         <th>Last name</th>
@@ -47,6 +49,7 @@
         <th></th>
     </tr>
     <tr ng-repeat="contact in vm.contacts">
+        <td ng-click="$parent.selected = $index">{{$index+1}}</td>
         <td>{{ contact.firstName }}</td>
         <td>{{ contact.middleName }}</td>
         <td>{{ contact.lastName }}</td>

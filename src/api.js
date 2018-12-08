@@ -3,8 +3,11 @@ function api (app) {
 
     var db = mongojs("contactManager", ["contacts"]);
 
+    days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+    months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+
     app.get("/api/contact", function (request, response) {
-        var pageSize = request.query.pageSize ? parseInt(request.query.pageSize) : 10;
+        var pageSize = request.query.pageSize ? parseInt(request.query.pageSize) : 1000;
         var firstName = request.query.firstName;
         var middleName = request.query.middleName;
         var lastName = request.query.lastName;
@@ -31,7 +34,7 @@ function api (app) {
             email: 1
         };
 
-        var result = db.contacts.find(find, fields).limit(pageSize, function (err, docs) {
+        var result = db.contacts.find(find, fields).sort({ "date": -1 }).limit(pageSize, function (err, docs) {
             response.json(docs);
         });
     });
@@ -42,16 +45,27 @@ function api (app) {
         db.contacts.findOne({ _id: mongojs.ObjectId(id) }, function (err, doc) {
             if (err)
                 console.log("Error: " + err);
-
+            fulldate = new Date(doc["date"]);
+            day = days[fulldate.getDay()];
+            date = fulldate.getDate();
+            month = months[fulldate.getMonth()];
+            year = fulldate.getFullYear();
+            hours = fulldate.getHours();
+            minutes = fulldate.getMinutes();
+            seconds = fulldate.getSeconds();
+            ampm = (hours >= 12) ? "PM" : "AM";
+            hours = (hours > 12) ? hours - 12 : (hours == 0 ? 12 : hours);
+            doc["date"] = day + ", " + date + "-" + month + "-" + year + ", " + hours + ":" + minutes + ":" + seconds + " " + ampm;
             response.json(doc);
         });
     });
 
     app.post("/api/contact", function (request, response) {
+        date = new Date(Date.now());
+        request.body["date"] = date.toISOString();
         db.contacts.insert(request.body, function (err, doc) {
             if (err)
                 console.log("Error: " + err);
-
             response.json(doc);
         });
     });
