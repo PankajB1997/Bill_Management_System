@@ -1,0 +1,17 @@
+<h2>Details</h2>
+
+<div>
+    <h4>Bill</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Vendor Name</dt>
+        <dd>{{ vm.model.vendorName }}</dd>
+
+        <dt>Originally Added On</dt>
+        <dd>{{ vm.model.date }}</dd>
+    </dl>
+</div>
+
+<p>
+    <a ng-click="vm.edit()">Edit</a> | <a ng-click="vm.cancel()">Back to Home</a>
+</p>

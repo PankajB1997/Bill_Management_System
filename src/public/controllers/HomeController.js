@@ -8,32 +8,32 @@
     function HomeController($location, toaster, repository) {
         var vm = this;
 
-        vm.contacts = [];
+        vm.bills = [];
 
         vm.search = {};
 
-        // toaster.pop("wait", "Loading contacts...");
+        // toaster.pop("wait", "Loading bills...");
 
-        repository.getContacts(vm.search).then(function (result) {
-            vm.contacts = result.data;
+        repository.getBills(vm.search).then(function (result) {
+            vm.bills = result.data;
         });
 
         vm.add = function () {
-            $location.path("/contact/add/");
+            $location.path("/bill/add/");
         };
 
         vm.search = function () {
-            repository.getContacts(vm.search).then(function (result) {
-                vm.contacts = result.data;
+            repository.getBills(vm.search).then(function (result) {
+                vm.bills = result.data;
             });
         };
 
         vm.details = function (id) {
-            $location.path("/contact/details/" + id);
+            $location.path("/bill/details/" + id);
         };
 
         vm.remove = function (id) {
-            $location.path("/contact/remove/" + id);
+            $location.path("/bill/remove/" + id);
         };
     };
-})(angular.module("contactManager"));
+})(angular.module("billManager"));

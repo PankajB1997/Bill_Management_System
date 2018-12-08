@@ -1,15 +1,17 @@
 <!DOCTYPE>
-<html ng-app="contactManager">
+<html ng-app="billManager">
     <head>
-        <title>Contact Manager App</title>
-
+        <title>Bill Manager</title>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" />
     </head>
-    <body>
+    <body style="background-color: #FFFFF0 !important">
         <div class="container">
-            <h1>Contact Manager</h1>
-
+            <div>
+                <img src="himalaya.png" width="200" height="50" style="float: right"/>
+                <h1>Bill Manager</h1>
+            </div>
+            <hr>
             <div ng-view></div>
         </div>
 
@@ -25,9 +27,9 @@
         <script src="app.js"></script>
         <script src="services/RepositoryService.js"></script>
         <script src="controllers/HomeController.js"></script>
-        <script src="controllers/ContactAddController.js"></script>
-        <script src="controllers/ContactDetailsController.js"></script>
-        <script src="controllers/ContactEditController.js"></script>
-        <script src="controllers/ContactRemoveController.js"></script>
+        <script src="controllers/AddController.js"></script>
+        <script src="controllers/DetailsController.js"></script>
+        <script src="controllers/EditController.js"></script>
+        <script src="controllers/RemoveController.js"></script>
     </body>
 </html>

@@ -1,0 +1,23 @@
+<h2>Add New Bill</h2>
+
+<form name="form" novalidate ng-submit="vm.save()">
+    <div class="form-horizontal">
+        <h4>Bill</h4>
+        <hr />
+
+        <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
+            <label for="vendorName" class="control-label col-md-2">Vendor Name</label>
+            <div class="col-md-10">
+                <input type="text" name="vendorName" class="form-control" required ng-model="vm.model.vendorName" />
+                <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" ng-disabled="!form.$valid" class="btn btn-primary" />
+                <a ng-click="vm.cancel()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

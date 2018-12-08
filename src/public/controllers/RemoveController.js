@@ -1,11 +1,11 @@
 (function (app) {
     "use strict";
 
-    app.controller("ContactRemoveController", ContactRemoveController);
+    app.controller("RemoveController", RemoveController);
 
-    ContactRemoveController.$inject = ["$location", "$routeParams", "toaster", "RepositoryService"];
+    RemoveController.$inject = ["$location", "$routeParams", "toaster", "RepositoryService"];
 
-    function ContactRemoveController($location, $routeParams, toaster, repository) {
+    function RemoveController($location, $routeParams, toaster, repository) {
         var vm = this;
 
         var id = $routeParams.id;
@@ -14,14 +14,14 @@
         vm.remove = remove;
         vm.cancel = cancel;
 
-        repository.getContact(id).then(function (result) {
+        repository.getBill(id).then(function (result) {
             vm.model = result.data;
         });
 
         function remove() {
             // toaster.pop("wait", "Removing...");
 
-            repository.deleteContact(id).then(function (result) {
+            repository.deleteBill(id).then(function (result) {
                 // toaster.pop("success", "The contact was removed successfully");
 
                 $location.path("/");
@@ -32,4 +32,4 @@
             $location.path("/");
         };
     };
-})(angular.module("contactManager"));
+})(angular.module("billManager"));
