@@ -1,17 +1,27 @@
 <!DOCTYPE>
-<html ng-app="contactManager">
+<html ng-app="billManager">
     <head>
-        <title>Contact Manager App</title>
-
+        <title>Himalaya Optical® | Bill Management System</title>
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.css" />
     </head>
-    <body>
+    <body style="background-color: #FFFFF0 !important">
+        <header id="header" class="header-panel affix-top">
+            <div class="container">
+                <div class="row">
+                    <img src="himalaya.png" width="200" height="68" style="float: left"/>
+                    <h1>&nbsp;&nbsp;Bill Management System</h1>
+                    <hr>
+                </div>
+            </div>
+        </header>
         <div class="container">
-            <h1>Contact Manager</h1>
-
             <div ng-view></div>
         </div>
+        <footer id="footer" class="footer-panel affix-bottom" style="position: absolute; bottom: 10; width: 100%; text-align: center">
+            <hr>
+            <p align="center">Designed by: <a href="https://www.linkedin.com/in/pankaj-bhootra-8b2182a1/" target="_blank">Pankaj Bhootra</a></p>
+        </footer>
 
         <toaster-container></toaster-container>
 
@@ -21,13 +31,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular-route.js"></script>
         <script src="https://code.angularjs.org/1.5.0/angular-animate.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/1.1.0/toaster.min.js"></script>
+        <script type="text/javascript" src="lib/filesaver.js"></script>
+        <script type="text/javascript" src="lib/jspdf.js"></script>
 
         <script src="app.js"></script>
         <script src="services/RepositoryService.js"></script>
         <script src="controllers/HomeController.js"></script>
-        <script src="controllers/ContactAddController.js"></script>
-        <script src="controllers/ContactDetailsController.js"></script>
-        <script src="controllers/ContactEditController.js"></script>
-        <script src="controllers/ContactRemoveController.js"></script>
+        <script src="controllers/AddController.js"></script>
+        <script src="controllers/DetailsController.js"></script>
+        <script src="controllers/EditController.js"></script>
+        <script src="controllers/RemoveController.js"></script>
+        <script src="controllers/ClaimController.js"></script>
     </body>
 </html>

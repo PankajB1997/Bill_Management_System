@@ -10,52 +10,44 @@
 
         var apiUrl = "/api";
 
-        svc.getContacts = getContacts;
-        svc.getContact = getContact;
-        svc.createContact = createContact;
-        svc.updateContact = updateContact;
-        svc.deleteContact = deleteContact;
+        svc.getBills = getBills;
+        svc.getBill = getBill;
+        svc.createBill = createBill;
+        svc.updateBill = updateBill;
+        svc.deleteBill = deleteBill;
 
-        function getContacts(fields) {
+        function getBills(fields) {
             var queryString = [];
 
             if (fields.pageSize) {
                 queryString.push("pageSize=" + fields.pageSize);
             }
 
-            if (fields.firstName) {
-                queryString.push("firstName=" + fields.firstName);
+            if (fields.vendorName) {
+                queryString.push("vendorName=" + fields.vendorName);
             }
 
-            if (fields.middleName) {
-                queryString.push("middleName=" + fields.middleName);
-            }
-
-            if (fields.lastName) {
-                queryString.push("lastName=" + fields.lastName);
-            }
-
-            var url = [apiUrl, "contact"].join("/");
+            var url = [apiUrl, "bill"].join("/");
 
             var fullUrl = queryString.length == 0 ? url : [url, "?", queryString.join("&")].join("");
 
             return $http.get(fullUrl);
         };
 
-        function getContact(id) {
-            return $http.get([apiUrl, "contact", id].join("/"));
+        function getBill(id) {
+            return $http.get([apiUrl, "bill", id].join("/"));
         };
 
-        function createContact(model) {
-            return $http.post([apiUrl, "contact"].join("/"), model);
+        function createBill(model) {
+            return $http.post([apiUrl, "bill"].join("/"), model);
         };
 
-        function updateContact(id, model) {
-            return $http.put([apiUrl, "contact", id].join("/"), model);
+        function updateBill(id, model) {
+            return $http.put([apiUrl, "bill", id].join("/"), model);
         };
 
-        function deleteContact(id) {
-            return $http.delete([apiUrl, "contact", id].join("/"));
+        function deleteBill(id) {
+            return $http.delete([apiUrl, "bill", id].join("/"));
         };
     };
-})(angular.module("contactManager"));
+})(angular.module("billManager"));

@@ -1,11 +1,11 @@
 (function (app) {
     "use strict";
 
-    app.controller("ContactAddController", ContactAddController);
+    app.controller("AddController", AddController);
 
-    ContactAddController.$inject = ["$location", "toaster", "RepositoryService"];
+    AddController.$inject = ["$location", "toaster", "RepositoryService"];
 
-    function ContactAddController($location, toaster, repository) {
+    function AddController($location, toaster, repository) {
         var vm = this;
 
         vm.model = {};
@@ -16,7 +16,7 @@
         function save() {
             // toaster.pop("wait", "Saving...");
 
-            repository.createContact(vm.model).then(function (result) {
+            repository.createBill(vm.model).then(function (result) {
                 // toaster.pop("success", "The contact was saved successfully");
 
                 $location.path("/");
@@ -27,4 +27,4 @@
             $location.path("/");
         };
     };
-})(angular.module("contactManager"));
+})(angular.module("billManager"));

@@ -1,4 +1,4 @@
-var module = angular.module("contactManager", [
+var module = angular.module("billManager", [
     "ngRoute",
     "ngAnimate",
     "toaster"
@@ -10,29 +10,29 @@ var module = angular.module("contactManager", [
 
         $routeProvider
             .when("/", {
-                templateUrl: base + "contact/index.html",
+                templateUrl: base + "bill/index.html",
                 controller: "HomeController",
                 controllerAs: "vm"
             })
-            .when("/contact/add", {
-                templateUrl: base + "contact/add.html",
-                controller: "ContactAddController",
+            .when("/bill/add", {
+                templateUrl: base + "bill/add.html",
+                controller: "AddController",
                 controllerAs: "vm"
             })
-            .when("/contact/details/:id", {
-                templateUrl: base + "contact/details.html",
-                controller: "ContactDetailsController",
+            .when("/bill/details/:id", {
+                templateUrl: base + "bill/details.html",
+                controller: "DetailsController",
                 controllerAs: "vm"
             })
-            .when("/contact/edit/:id", {
-                templateUrl: base + "contact/edit.html",
-                controller: "ContactEditController",
+            .when("/bill/edit/:id", {
+                templateUrl: base + "bill/edit.html",
+                controller: "EditController",
                 controllerAs: "vm"
             })
-            .when("/contact/remove/:id", {
-                templateUrl: base + "contact/remove.html",
-                controller: "ContactRemoveController",
+            .when("/bill/remove/:id", {
+                templateUrl: base + "bill/remove.html",
+                controller: "RemoveController",
                 controllerAs: "vm"
             });
     });
-})(angular.module("contactManager"));
+})(angular.module("billManager"));

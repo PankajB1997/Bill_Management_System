@@ -1,22 +1,14 @@
-<h2>Contacts</h2>
+<h2>Bills</h2>
 
 <p>
-    <a ng-click="vm.add()">Add new</a>
+    <a ng-click="vm.add()">Add New Bill</a>
 </p>
 
 <div class="container">
     <div class="row">
         <div class="form-inline">
             <div class="form-group">
-                <input type="text" name="firstName" class="form-control" placeholder="First name" ng-model="vm.search.firstName" />
-            </div>
-
-            <div class="form-group">
-                <input type="text" name="middleName" class="form-control" placeholder="Middle name" ng-model="vm.search.middleName" />
-            </div>
-
-            <div class="form-group">
-                <input type="text" name="lastName" class="form-control" placeholder="Last name" ng-model="vm.search.lastName" />
+                <input type="text" name="vendorName" class="form-control" placeholder="Vendor Name" ng-model="vm.search.vendorName" />
             </div>
 
             <div class="form-group">
@@ -26,6 +18,7 @@
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
+                    <option value="200">200</option>
                 </select>
             </div>
 
@@ -41,27 +34,20 @@
 <table class="table table-hover">
     <tr>
         <th>No.</th>
-        <th>First name</th>
-        <th>Middle name</th>
-        <th>Last name</th>
-        <th>Phone</th>
-        <th>Email</th>
+        <th>Vendor Name</th>
         <th></th>
     </tr>
-    <tr ng-repeat="contact in vm.contacts">
-        <td ng-click="$parent.selected = $index">{{$index+1}}</td>
-        <td>{{ contact.firstName }}</td>
-        <td>{{ contact.middleName }}</td>
-        <td>{{ contact.lastName }}</td>
-        <td>{{ contact.phone }}</td>
-        <td>{{ contact.email }}</td>
+    <tr ng-repeat="bill in vm.bills">
+        <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
+        <td>{{ bill.vendorName }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
-                    <li><a ng-click="vm.details(contact._id)">Details</a></li>
-                    <li><a ng-click="vm.remove(contact._id)">Remove</a></li>
+                    <li><a ng-click="vm.details(bill._id)">Details</a></li>
+                    <li><a ng-click="vm.remove(bill._id)">Remove</a></li>
+                    <li><a ng-click="vm.downloadClaim(bill._id)">Download Claim Form</a></li>
                 </ul>
             </div>
         </td>
