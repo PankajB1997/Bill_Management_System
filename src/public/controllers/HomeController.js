@@ -35,5 +35,13 @@
         vm.remove = function (id) {
             $location.path("/bill/remove/" + id);
         };
+
+        vm.downloadClaim = function (id) {
+            repository.getBill(id).then(function (result) {
+                const doc = new jsPDF();
+                doc.text("Vendor Name: " + result.data["vendorName"], 10, 10);
+                doc.save("request_for_claim.pdf");
+            });
+        }
     };
 })(angular.module("billManager"));

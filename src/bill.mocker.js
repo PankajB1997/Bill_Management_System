@@ -1,7 +1,7 @@
 var mongojs = require("mongojs");
 var db = mongojs("billManager", ["bills"]);
 
-var limit = 1;
+var limit = 5;
 
 var vendorNames = ["PISPL", "AURO SALES", "CL INDIA", "COLOR EYES", "DNG", "EAGLE VISION", "FAIR VISION", "J&J", "LAJRT ENTERPRISES"];
 

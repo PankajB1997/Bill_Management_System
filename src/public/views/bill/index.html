@@ -38,7 +38,7 @@
         <th></th>
     </tr>
     <tr ng-repeat="bill in vm.bills">
-        <td ng-click="$parent.selected = $index">{{$index+1}}</td>
+        <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
         <td>{{ bill.vendorName }}</td>
         <td>
             <div class="dropdown">
@@ -47,6 +47,7 @@
                 <ul class="dropdown-menu">
                     <li><a ng-click="vm.details(bill._id)">Details</a></li>
                     <li><a ng-click="vm.remove(bill._id)">Remove</a></li>
+                    <li><a ng-click="vm.downloadClaim(bill._id)">Download Claim Form</a></li>
                 </ul>
             </div>
         </td>
