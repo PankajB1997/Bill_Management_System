@@ -41,6 +41,9 @@ function api (app) {
             seconds = fulldate.getSeconds();
             ampm = (hours >= 12) ? "PM" : "AM";
             hours = (hours > 12) ? hours - 12 : (hours == 0 ? 12 : hours);
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
             doc["date"] = day + ", " + date + "-" + month + "-" + year + ", " + hours + ":" + minutes + ":" + seconds + " " + ampm;
             response.json(doc);
         });
