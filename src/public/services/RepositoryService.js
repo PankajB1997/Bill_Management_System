@@ -15,6 +15,8 @@
         svc.createBill = createBill;
         svc.updateBill = updateBill;
         svc.deleteBill = deleteBill;
+        svc.getMasterData = getMasterData;
+        svc.addNewMasterData = addNewMasterData;
 
         function getBills(fields) {
             var queryString = [];
@@ -25,6 +27,10 @@
 
             if (fields.vendorName) {
                 queryString.push("vendorName=" + fields.vendorName);
+            }
+
+            if (fields.billTo) {
+                queryString.push("billTo=" + fields.billTo);
             }
 
             var url = [apiUrl, "bill"].join("/");
@@ -49,5 +55,13 @@
         function deleteBill(id) {
             return $http.delete([apiUrl, "bill", id].join("/"));
         };
+
+        function getMasterData() {
+            return $http.get([apiUrl, "master"].join("/"));
+        }
+
+        function addNewMasterData(model) {
+            return $http.post([apiUrl, "master"].join("/"), model);
+        }
     };
 })(angular.module("billManager"));

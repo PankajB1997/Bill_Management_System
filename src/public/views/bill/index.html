@@ -1,14 +1,20 @@
 <h2>Bills</h2>
 
-<p>
+<h4>
     <a ng-click="vm.add()">Add New Bill</a>
-</p>
+    &nbsp;&nbsp;
+    <a ng-click="vm.addMaster()">Add New Master Data</a>
+</h4>
 
 <div class="container">
     <div class="row">
         <div class="form-inline">
             <div class="form-group">
                 <input type="text" name="vendorName" class="form-control" placeholder="Vendor Name" ng-model="vm.search.vendorName" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" name="billTo" class="form-control" placeholder="Billed To" ng-model="vm.search.billTo" />
             </div>
 
             <div class="form-group">
@@ -35,11 +41,13 @@
     <tr>
         <th>No.</th>
         <th>Vendor Name</th>
+        <th>Billed To</th>
         <th></th>
     </tr>
     <tr ng-repeat="bill in vm.bills">
         <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
         <td>{{ bill.vendorName }}</td>
+        <td>{{ bill.billTo }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">

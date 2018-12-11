@@ -9,15 +9,20 @@ function api (app) {
     app.get("/api/bill", function (request, response) {
         var pageSize = request.query.pageSize ? parseInt(request.query.pageSize) : 1000;
         var vendorName = request.query.vendorName;
+        var billTo = request.query.billTo;
 
         var find = {};
 
         if (vendorName) {
             find.vendorName = new RegExp(vendorName, "i");
         }
+        if (billTo) {
+            find.billTo = new RegExp(billTo, "i");
+        }
 
         var fields = {
-            vendorName: 1
+            vendorName: 1,
+            billTo: 1
         };
 
         var result = db.bills.find(find, fields).sort({ "date": -1 }).limit(pageSize, function (err, docs) {
@@ -68,7 +73,8 @@ function api (app) {
             },
             update: {
                 $set: {
-                    vendorName: request.body.vendorName
+                    vendorName: request.body.vendorName,
+                    billTo: request.body.billTo
                 }
             },
             new: true
@@ -85,6 +91,16 @@ function api (app) {
                 console.log("Error: " + err);
             response.json(doc);
         });
+    });
+
+    app.get("/api/master", function (request, response) {
+        // TODO
+        response.json({});
+    });
+
+    app.post("/api/master", function (request, response) {
+        // TODO
+        response.json({});
     });
 };
 

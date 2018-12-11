@@ -12,6 +12,13 @@
                 <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
             </div>
         </div>
+        <div class="form-group" ng-class="{ 'has-error': form.billTo.$invalid }">
+            <label for="billTo" class="control-label col-md-2">Billed To</label>
+            <div class="col-md-10">
+                <input type="text" name="billTo" class="form-control" required ng-model="vm.model.billTo" />
+                <span class="text-danger help-block" ng-show="form.billTo.$error.required">(*) Required</span>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

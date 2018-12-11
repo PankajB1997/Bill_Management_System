@@ -19,6 +19,11 @@ var module = angular.module("billManager", [
                 controller: "AddController",
                 controllerAs: "vm"
             })
+            .when("/bill/add-master", {
+                templateUrl: base + "bill/master.html",
+                controller: "MasterController",
+                controllerAs: "vm"
+            })
             .when("/bill/details/:id", {
                 templateUrl: base + "bill/details.html",
                 controller: "DetailsController",

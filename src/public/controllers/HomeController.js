@@ -22,6 +22,10 @@
             $location.path("/bill/add/");
         };
 
+        vm.addMaster = function () {
+            $location.path("/bill/add-master/");
+        }
+
         vm.search = function () {
             repository.getBills(vm.search).then(function (result) {
                 vm.bills = result.data;
@@ -40,7 +44,8 @@
             repository.getBill(id).then(function (result) {
                 const doc = new jsPDF();
                 doc.text("Vendor Name: " + result.data["vendorName"], 10, 10);
-                doc.save("request_for_claim.pdf");
+                doc.text("Billed To: " + result.data["billTo"], 10, 20);
+                doc.save(result.data["vendorName"] + ".pdf");
             });
         }
     };
