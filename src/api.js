@@ -10,19 +10,26 @@ function api (app) {
         var pageSize = request.query.pageSize ? parseInt(request.query.pageSize) : 1000;
         var vendorName = request.query.vendorName;
         var billTo = request.query.billTo;
+        var billNo = request.query.billNo;
 
         var find = {};
 
         if (vendorName) {
             find.vendorName = new RegExp(vendorName, "i");
         }
+
         if (billTo) {
             find.billTo = new RegExp(billTo, "i");
         }
 
+        if (billNo) {
+            find.billNo = new RegExp(billNo, "i");
+        }
+
         var fields = {
             vendorName: 1,
-            billTo: 1
+            billTo: 1,
+            billNo: 1
         };
 
         var result = db.bills.find(find, fields).sort({ "date": -1 }).limit(pageSize, function (err, docs) {
@@ -74,7 +81,8 @@ function api (app) {
             update: {
                 $set: {
                     vendorName: request.body.vendorName,
-                    billTo: request.body.billTo
+                    billTo: request.body.billTo,
+                    billNo: request.body.billNo
                 }
             },
             new: true

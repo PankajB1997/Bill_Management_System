@@ -33,6 +33,10 @@
                 queryString.push("billTo=" + fields.billTo);
             }
 
+            if (fields.billNo) {
+                queryString.push("billNo=" + fields.billNo);
+            }
+
             var url = [apiUrl, "bill"].join("/");
 
             var fullUrl = queryString.length == 0 ? url : [url, "?", queryString.join("&")].join("");

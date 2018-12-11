@@ -2,8 +2,15 @@
 
 <form name="form" novalidate ng-submit="vm.save()">
     <div class="form-horizontal">
-        <h4>Bill</h4>
         <hr />
+
+        <div class="form-group" ng-class="{ 'has-error': form.billNo.$invalid }">
+            <label for="billNo" class="control-label col-md-2">Bill No.</label>
+            <div class="col-md-10">
+                <input type="text" name="billNo" class="form-control" required ng-model="vm.model.billNo" />
+                <span class="text-danger help-block" ng-show="form.billNo.$error.required">(*) Required</span>
+            </div>
+        </div>
 
         <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
             <label for="vendorName" class="control-label col-md-2">Vendor Name</label>
@@ -12,6 +19,7 @@
                 <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
             </div>
         </div>
+
         <div class="form-group" ng-class="{ 'has-error': form.billTo.$invalid }">
             <label for="billTo" class="control-label col-md-2">Billed To</label>
             <div class="col-md-10">

@@ -43,8 +43,9 @@
         vm.downloadClaim = function (id) {
             repository.getBill(id).then(function (result) {
                 const doc = new jsPDF();
-                doc.text("Vendor Name: " + result.data["vendorName"], 10, 10);
-                doc.text("Billed To: " + result.data["billTo"], 10, 20);
+                doc.text("Bill No.: " + result.data["billNo"], 10, 10);
+                doc.text("Vendor Name: " + result.data["vendorName"], 10, 20);
+                doc.text("Billed To: " + result.data["billTo"], 10, 30);
                 doc.save(result.data["vendorName"] + ".pdf");
             });
         }
