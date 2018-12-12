@@ -9,31 +9,43 @@
 <div class="container">
     <div class="row">
         <div class="form-inline">
-            <div class="form-group">
-                <input type="text" name="billNo" class="form-control" placeholder="Bill No." ng-model="vm.search.billNo" />
-            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="form-group">
+                        <input type="text" name="billNo" class="form-control" placeholder="Bill No." ng-model="vm.search.billNo" />
+                    </div>
 
-            <div class="form-group">
-                <input type="text" name="vendorName" class="form-control" placeholder="Vendor Name" ng-model="vm.search.vendorName" />
-            </div>
+                    <div class="form-group">
+                        <input type="text" name="vendorName" class="form-control" placeholder="Vendor Name" ng-model="vm.search.vendorName" />
+                    </div>
 
-            <div class="form-group">
-                <input type="text" name="billTo" class="form-control" placeholder="Billed To" ng-model="vm.search.billTo" />
-            </div>
+                    <div class="form-group">
+                        <input type="text" name="billTo" class="form-control" placeholder="Billed To" ng-model="vm.search.billTo" />
+                    </div>
 
-            <div class="form-group">
-                <select name="pageSize" class="form-control list-box" ng-model="vm.search.pageSize">
-                    <option value="" disabled selected>Limit</option>
-                    <option value="10" selected="selected">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="200">200</option>
-                </select>
-            </div>
+                    <div class="form-group">
+                        <input placeholder="Start Date (dd/mm/yyyy)" type="text" name="billStartDate" class="form-control" ng-model="vm.search.billStartDate" />
+                    </div>
 
-            <div class="form-group">
-                <button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="vm.search();" />
+                    <div class="form-group">
+                        <input placeholder="End Date (dd/mm/yyyy)" type="text" name="billEndDate" class="form-control" ng-model="vm.search.billEndDate" />
+                    </div>
+
+                    <div class="form-group">
+                        <select name="pageSize" class="form-control list-box" ng-model="vm.search.pageSize">
+                            <option value="" disabled selected>Limit</option>
+                            <option value="10" selected="selected">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="vm.search();" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -47,6 +59,7 @@
         <th>Vendor Name</th>
         <th>Billed To</th>
         <th>Bill No.</th>
+        <th>Bill Date</th>
         <th></th>
     </tr>
     <tr ng-repeat="bill in vm.bills">
@@ -54,6 +67,7 @@
         <td>{{ bill.vendorName }}</td>
         <td>{{ bill.billTo }}</td>
         <td>{{ bill.billNo }}</td>
+        <td>{{ bill.billDate }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">

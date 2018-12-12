@@ -37,6 +37,14 @@
                 queryString.push("billNo=" + fields.billNo);
             }
 
+            if (fields.billStartDate) {
+                queryString.push("billStartDate=" + fields.billStartDate.replace("/", "-").replace("/", "-"));
+            }
+
+            if (fields.billEndDate) {
+                queryString.push("billEndDate=" + fields.billEndDate.replace("/", "-").replace("/", "-"));
+            }
+
             var url = [apiUrl, "bill"].join("/");
 
             var fullUrl = queryString.length == 0 ? url : [url, "?", queryString.join("&")].join("");

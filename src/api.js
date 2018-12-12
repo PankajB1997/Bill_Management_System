@@ -8,31 +8,50 @@ function api (app) {
 
     app.get("/api/bill", function (request, response) {
         var pageSize = request.query.pageSize ? parseInt(request.query.pageSize) : 1000;
-        var vendorName = request.query.vendorName;
-        var billTo = request.query.billTo;
-        var billNo = request.query.billNo;
 
         var find = {};
 
-        if (vendorName) {
-            find.vendorName = new RegExp(vendorName, "i");
+        if (request.query.vendorName) {
+            find.vendorName = new RegExp(request.query.vendorName, "i");
         }
 
-        if (billTo) {
-            find.billTo = new RegExp(billTo, "i");
+        if (request.query.billTo) {
+            find.billTo = new RegExp(request.query.billTo, "i");
         }
 
-        if (billNo) {
-            find.billNo = new RegExp(billNo, "i");
+        if (request.query.billNo) {
+            find.billNo = new RegExp(request.query.billNo, "i");
+        }
+
+        if (request.query.billStartDate || request.query.billEndDate) {
+            find.billDate = {};
+            if (request.query.billStartDate) {
+                var billDMYS = request.query.billStartDate.split("-");
+                var billStartDate = new Date(billDMYS[2], billDMYS[1]-1, billDMYS[0]);
+                find.billDate.$gte = billStartDate;
+            }
+            if (request.query.billEndDate) {
+                var billDMYE = request.query.billEndDate.split("-");
+                var billEndDate = new Date(billDMYE[2], billDMYE[1]-1, billDMYE[0]);
+                find.billDate.$lte = billEndDate;
+            }
         }
 
         var fields = {
             vendorName: 1,
             billTo: 1,
-            billNo: 1
+            billNo: 1,
+            billDate: 1
         };
 
-        var result = db.bills.find(find, fields).sort({ "date": -1 }).limit(pageSize, function (err, docs) {
+        var result = db.bills.find(find, fields).sort({ "billDate": -1 }).limit(pageSize, function (err, docs) {
+            for (var i = 0; i < docs.length; i++) {
+                if (docs[i]["billDate"]) {
+                    day = (docs[i]["billDate"].getDay() < 10) ? "0" + docs[i]["billDate"].getDay() : docs[i]["billDate"].getDay();
+                    month = ((docs[i]["billDate"].getMonth() + 1) < 10) ? "0" + (docs[i]["billDate"].getMonth() + 1) : (docs[i]["billDate"].getMonth() + 1);
+                    docs[i]["billDate"] = day + "/" + month + "/" + docs[i]["billDate"].getFullYear();
+                }
+            }
             response.json(docs);
         });
     });
@@ -43,20 +62,25 @@ function api (app) {
         db.bills.findOne({ _id: mongojs.ObjectId(id) }, function (err, doc) {
             if (err)
                 console.log("Error: " + err);
-            fulldate = new Date(doc["date"]);
-            day = days[fulldate.getDay()];
-            date = fulldate.getDate();
-            month = months[fulldate.getMonth()];
-            year = fulldate.getFullYear();
-            hours = fulldate.getHours();
-            minutes = fulldate.getMinutes();
-            seconds = fulldate.getSeconds();
-            ampm = (hours >= 12) ? "PM" : "AM";
-            hours = (hours > 12) ? hours - 12 : (hours == 0 ? 12 : hours);
-            hours = (hours < 10) ? "0" + hours : hours;
-            minutes = (minutes < 10) ? "0" + minutes : minutes;
-            seconds = (seconds < 10) ? "0" + seconds : seconds;
-            doc["date"] = day + ", " + date + "-" + month + "-" + year + ", " + hours + ":" + minutes + ":" + seconds + " " + ampm;
+            // fulldate = new Date(doc["date"]);
+            // day = days[fulldate.getDay()];
+            // date = fulldate.getDate();
+            // month = months[fulldate.getMonth()];
+            // year = fulldate.getFullYear();
+            // hours = fulldate.getHours();
+            // minutes = fulldate.getMinutes();
+            // seconds = fulldate.getSeconds();
+            // ampm = (hours >= 12) ? "PM" : "AM";
+            // hours = (hours > 12) ? hours - 12 : (hours == 0 ? 12 : hours);
+            // hours = (hours < 10) ? "0" + hours : hours;
+            // minutes = (minutes < 10) ? "0" + minutes : minutes;
+            // seconds = (seconds < 10) ? "0" + seconds : seconds;
+            // doc["date"] = day + ", " + date + "-" + month + "-" + year + ", " + hours + ":" + minutes + ":" + seconds + " " + ampm;
+            if (doc["billDate"]) {
+                day = (doc["billDate"].getDay() < 10) ? "0" + doc["billDate"].getDay() : doc["billDate"].getDay();
+                month = ((doc["billDate"].getMonth() + 1) < 10) ? "0" + (doc["billDate"].getMonth() + 1) : (doc["billDate"].getMonth() + 1);
+                doc["billDate"] = day + "/" + month + "/" + doc["billDate"].getFullYear();
+            }
             response.json(doc);
         });
     });
@@ -64,6 +88,10 @@ function api (app) {
     app.post("/api/bill", function (request, response) {
         date = new Date(Date.now());
         request.body["date"] = date.toISOString();
+        if (request.body["billDate"]) {
+            var billDMY = request.body["billDate"].split("-");
+            request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
+        }
         db.bills.insert(request.body, function (err, doc) {
             if (err)
                 console.log("Error: " + err);
@@ -73,7 +101,10 @@ function api (app) {
 
     app.put("/api/bill/:id", function (request, response) {
         var id = request.params.id;
-
+        if (request.body["billDate"]) {
+            var billDMY = request.body["billDate"].split("-");
+            request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
+        }
         db.bills.findAndModify({
             query: {
                 _id: mongojs.ObjectId(id)
@@ -82,7 +113,8 @@ function api (app) {
                 $set: {
                     vendorName: request.body.vendorName,
                     billTo: request.body.billTo,
-                    billNo: request.body.billNo
+                    billNo: request.body.billNo,
+                    billDate: request.body.billDate
                 }
             },
             new: true

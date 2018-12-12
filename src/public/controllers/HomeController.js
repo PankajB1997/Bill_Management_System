@@ -44,8 +44,9 @@
             repository.getBill(id).then(function (result) {
                 const doc = new jsPDF();
                 doc.text("Bill No.: " + result.data["billNo"], 10, 10);
-                doc.text("Vendor Name: " + result.data["vendorName"], 10, 20);
-                doc.text("Billed To: " + result.data["billTo"], 10, 30);
+                doc.text("Bill Date: " + result.data["billDate"], 10, 20);
+                doc.text("Vendor Name: " + result.data["vendorName"], 10, 30);
+                doc.text("Billed To: " + result.data["billTo"], 10, 40);
                 doc.save(result.data["vendorName"] + ".pdf");
             });
         }
