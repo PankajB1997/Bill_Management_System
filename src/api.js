@@ -134,13 +134,27 @@ function api (app) {
     });
 
     app.get("/api/master", function (request, response) {
-        // TODO
-        response.json({});
+        db.billsMaster.find().sort({ "hoCode": 1 }, function (err, docs) {
+            response.json(docs);
+        });
     });
 
     app.post("/api/master", function (request, response) {
-        // TODO
-        response.json({});
+        db.billsMaster.insert(request.body, function (err, doc) {
+            if (err)
+                console.log("Error: " + err);
+            response.json(doc);
+        });
+    });
+
+    app.delete("/api/master/:id", function (request, response) {
+        var id = request.params.id;
+
+        db.billsMaster.remove({ _id: mongojs.ObjectId(id) }, function (err, doc) {
+            if (err)
+                console.log("Error: " + err);
+            response.json(doc);
+        });
     });
 };
 

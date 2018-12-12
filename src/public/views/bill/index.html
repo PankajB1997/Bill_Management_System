@@ -63,6 +63,8 @@
         <th>Billed To</th>
         <th>Bill No.</th>
         <th>Bill Date</th>
+        <th>Bill Amount</th>
+        <th>Claim Amount</th>
         <th></th>
     </tr>
     <tr ng-repeat="bill in vm.bills">
@@ -71,6 +73,8 @@
         <td>{{ bill.billTo }}</td>
         <td>{{ bill.billNo }}</td>
         <td>{{ bill.billDate }}</td>
+        <td>{{ bill.billAmount }}</td>
+        <td>{{ bill.claimAmount }}</td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
