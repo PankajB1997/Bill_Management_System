@@ -7,6 +7,7 @@
 
     function preprocessor(objArray) {
         //TODO: Need to preprocess data to make it suitable for appearance in Excel
+        
         return objArray;
     }
 
@@ -15,17 +16,18 @@
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
         var row = "";
-        for (var index in objArray[0]) {
-            row += index + ',';
+        var properties = ["billNo", "billDate", "vendorName", "billTo"];
+        for (var index in properties) {
+            row += properties[index] + ',';
         }
         row = row.slice(0, -1);
         str += row + '\r\n';
         for (var i = 0; i < array.length; i++) {
             var line = '';
-            for (var index in array[i]) {
+            for (var index in properties) {
                 if (line != '')
                     line += ',';
-                line += array[i][index];
+                line += array[i][properties[index]];
             }
             str += line + '\r\n';
         }
