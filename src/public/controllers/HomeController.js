@@ -6,9 +6,26 @@
     HomeController.$inject = ["$location", "toaster", "RepositoryService"];
 
     function preprocessor(objArray) {
-        //TODO: Need to preprocess data to make it suitable for appearance in Excel
+        var resArray = [];
+        var properties = ["billNo", "billDate", "vendorName", "billTo", "totalBillAmount", "totalClaimAmount", "amountPaid", "modeOfPayment", "instrumentNo"];
+        var propertyLabels = ["BILL NO.", "BILL DATE", "VENDOR NAME", "BILL TO", "TOTAL BILL AMOUNT", "TOTAL CLAIM AMOUNT", "AMT PAID", "MODE OF PAYMENT", "INSTRUMENT NO."];
+        var itemProperties = ["itemDescription", "quantity", "billingUnit", "rate", "billing", "gst", "billAmount", "rateDifference", "claimAmount"];
+        var itemPropertyLabels = ["PRODUCT", "QTY", "BILLING UNIT", "RATE", "BILLING", "GST", "BILL AMOUNT", "RATE DIFF", "CLAIM AMT"];
 
-        return objArray;
+        for(var row in objArray) {
+            var bill = {};
+            for(var i=0; i<properties.length; i++) {
+                bill[propertyLabels[i]] = objArray[row][properties[i]];
+            }
+            for(var product in objArray[row].items) {
+                for(var j=0; j<itemProperties.length; j++) {
+                    bill[itemPropertyLabels[i]] = objArray[row].items[product][itemProperties[i]];
+                }
+                resArray.push(bill);
+            }
+        }
+
+        return resArray;
     }
 
     function ConvertToCSV(objArray) {
@@ -16,19 +33,17 @@
         var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
         var str = '';
         var row = "";
-        var properties = ["billNo", "billDate", "vendorName", "billTo"];
-        var propertyLabels = ["BILL NO.", "BILL DATE", "VENDOR NAME", "BILL TO"];
-        for (var index in properties) {
-            row += propertyLabels[index] + ',';
+        for (var index in objArray[0]) {
+            row += index + ',';
         }
         row = row.slice(0, -1);
         str += row + '\r\n';
         for (var i = 0; i < array.length; i++) {
             var line = '';
-            for (var index in properties) {
+            for (var index in array[i]) {
                 if (line != '')
                     line += ',';
-                line += array[i][properties[index]];
+                line += array[i][index];
             }
             str += line + '\r\n';
         }
@@ -176,6 +191,8 @@
                 doc.text("Bill Date: " + result.data["billDate"], 10, 20);
                 doc.text("Vendor Name: " + result.data["vendorName"], 10, 30);
                 doc.text("Billed To: " + result.data["billTo"], 10, 40);
+                doc.text("Total Bill Amount: " + result.data["totalBillAmount"], 10, 50);
+                doc.text("Total Claim Amount: " + result.data["totalClaimAmount"], 10, 60);
                 doc.save(result.data["vendorName"] + ".pdf");
             });
         };

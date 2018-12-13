@@ -38,6 +38,8 @@
         function save() {
             repository.addNewMasterData(vm.model).then(function (result) {
                 $location.path("/bill/add-master");
+                vm.model = {};
+                vm.model.vendorName = result.data.vendorName;
                 repository.getMasterData().then(function (result) {
                     vm.master = result.data;
                 });
