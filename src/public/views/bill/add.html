@@ -2,14 +2,39 @@
 
 <form name="form" novalidate ng-submit="vm.save()">
     <div class="form-horizontal">
-        <h4>Bill</h4>
         <hr />
+
+        <div class="form-group" ng-class="{ 'has-error': form.billNo.$invalid }">
+            <label for="billNo" class="control-label col-md-2">Bill No.</label>
+            <div class="col-md-10">
+                <input type="text" name="billNo" class="form-control" required ng-model="vm.model.billNo" />
+                <span class="text-danger help-block" ng-show="form.billNo.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.billDate.$invalid }">
+            <label for="billDate" class="control-label col-md-2">Bill Date</label>
+            <div class="col-md-10">
+                <input placeholder="dd/mm/yyyy" type="text" name="billDate" class="form-control" required ng-model="vm.model.billDate" />
+                <span class="text-danger help-block" ng-show="form.billDate.$error.required">(*) Required</span>
+            </div>
+        </div>
 
         <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
             <label for="vendorName" class="control-label col-md-2">Vendor Name</label>
             <div class="col-md-10">
-                <input type="text" name="vendorName" class="form-control" required ng-model="vm.model.vendorName" />
+                <select class="form-control" name="vendorName" ng-model="vm.model.vendorName" ng-options="item.label as item.label disable when item.disabled for item in vm.vendorNames"></select>
+                <!-- <input type="text" name="vendorName" class="form-control" required ng-model="vm.model.vendorName" /> -->
                 <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.billTo.$invalid }">
+            <label for="billTo" class="control-label col-md-2">Billed To</label>
+            <div class="col-md-10">
+                <select class="form-control" name="billTo" ng-model="vm.model.billTo" ng-options="item.label as item.label disable when item.disabled for item in vm.billTos"></select>
+                <!-- <input type="text" name="billTo" class="form-control" required ng-model="vm.model.billTo" /> -->
+                <span class="text-danger help-block" ng-show="form.billTo.$error.required">(*) Required</span>
             </div>
         </div>
 
