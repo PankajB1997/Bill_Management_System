@@ -19,12 +19,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="vendorName" class="form-control" placeholder="Vendor Name" ng-model="vm.search.vendorName" />
-                        <!-- <select class="form-control" ng-model="vm.search.vendorName" ng-options="item for item in vm.vendorNames"></select> -->
+                        <select class="form-control" name="vendorName" ng-model="vm.search.vendorName" ng-options="item.label as item.label disable when item.disabled for item in vm.vendorNames"></select>
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="billTo" class="form-control" placeholder="Billed To" ng-model="vm.search.billTo" />
+                        <select class="form-control" name="billTo" ng-model="vm.search.billTo" ng-options="item.label as item.label disable when item.disabled for item in vm.billTos"></select>
                     </div>
 
                     <div class="form-group">
@@ -35,7 +34,7 @@
                         <input placeholder="End Date (dd/mm/yyyy)" type="text" name="billEndDate" class="form-control" ng-model="vm.search.billEndDate" />
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <select name="pageSize" class="form-control list-box" ng-model="vm.search.pageSize">
                             <option value="" disabled selected>Limit</option>
                             <option value="10" selected="selected">10</option>
@@ -44,10 +43,14 @@
                             <option value="100">100</option>
                             <option value="200">200</option>
                         </select>
-                    </div>
-
+                    </div> -->
+                    &nbsp;
                     <div class="form-group">
                         <button type="button" class="btn btn-primary glyphicon glyphicon-search" ng-click="vm.search();" />
+                    </div>
+                    &nbsp;
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary glyphicon glyphicon-trash" ng-click="vm.clearSearch();" />
                     </div>
                 </div>
             </div>

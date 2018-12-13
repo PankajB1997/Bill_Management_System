@@ -47,7 +47,13 @@
         vm.vendorItemCodes = [];
         vm.hoCodes = [];
         vm.itemDescriptions = [];
-        vm.billTos = [ "Vision World Pvt. Ltd.", "Specs World Pvt. Ltd.", "The Himalaya Optical Company", "Himalaya Vision Crafter Pvt. Ltd." ];
+        vm.billTos = [
+            { label: "Billed To", disabled: true },
+            { label: "Vision World Pvt. Ltd." },
+            { label: "Specs World Pvt. Ltd." },
+            { label: "The Himalaya Optical Company" },
+            { label: "Himalaya Vision Crafter Pvt. Ltd." }
+        ];
 
         repository.getMasterData().then(function (result) {
             for (var row in result.data) {
@@ -57,17 +63,37 @@
                 if (result.data[row]["vendorItemCode"] && vm.vendorItemCodes.includes(result.data[row]["vendorItemCode"]) == false) {
                     vm.vendorItemCodes.push(result.data[row]["vendorItemCode"]);
                 }
+
                 if (result.data[row]["hoCode"] && vm.hoCodes.includes(result.data[row]["hoCode"]) == false) {
                     vm.hoCodes.push(result.data[row]["hoCode"]);
                 }
+
                 if (vm.itemDescriptions.includes(result.data[row]["itemDescription"]) == false) {
                     vm.itemDescriptions.push(result.data[row]["itemDescription"]);
                 }
             }
             vm.vendorNames.sort();
+            for (var val in vm.vendorNames) {
+                vm.vendorNames[val] = { label: vm.vendorNames[val] };
+            }
+            vm.vendorNames.unshift({ label: "Vendor Name", "disabled": true });
+            vm.search.vendorName = vm.vendorNames[0].label;
             vm.vendorItemCodes.sort();
+            for (var val in vm.vendorItemCodes) {
+                vm.vendorItemCodes[val] = { label: vm.vendorItemCodes[val] };
+            }
+            vm.vendorItemCodes.unshift({ label: "Vendor Item Code", "disabled": true });
             vm.hoCodes.sort();
+            for (var val in vm.hoCodes) {
+                vm.hoCodes[val] = { label: vm.hoCodes[val] };
+            }
+            vm.hoCodes.unshift({ label: "H.O. Code", "disabled": true });
             vm.itemDescriptions.sort();
+            for (var val in vm.itemDescriptions) {
+                vm.itemDescriptions[val] = { label: vm.itemDescriptions[val] };
+            }
+            vm.itemDescriptions.unshift({ label: "Item Description", "disabled": true });
+            vm.search.billTo = vm.billTos[0].label;
         });
 
         vm.add = function () {
@@ -79,10 +105,33 @@
         };
 
         vm.search = function () {
-            repository.getBills(vm.search).then(function (result) {
+            var searchString = {};
+            searchString.billNo = vm.search.billNo;
+            searchString.billStartDate = vm.search.billStartDate;
+            searchString.billEndDate = vm.search.billEndDate;
+            searchString.vendorName = vm.search.vendorName;
+            searchString.billTo = vm.search.billTo;
+            if (searchString.vendorName == "Vendor Name") {
+                searchString.vendorName = null;
+            }
+            if (searchString.billTo == "Billed To") {
+                searchString.billTo = null;
+            }
+            repository.getBills(searchString).then(function (result) {
                 vm.bills = result.data;
             });
         };
+
+        vm.clearSearch = function() {
+            vm.search.billNo = null;
+            vm.search.billStartDate = null;
+            vm.search.billEndDate = null;
+            vm.search.vendorName = "Vendor Name";
+            vm.search.billTo = "Billed To";
+            repository.getBills({}).then(function (result) {
+                vm.bills = result.data;
+            });
+        }
 
         vm.exportToExcel = function () {
             repository.getBills(vm.search).then(function (result) {
