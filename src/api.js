@@ -45,9 +45,22 @@ function api (app) {
         };
 
         var result = db.bills.find(find, fields).sort({ "billDate": -1 }).limit(pageSize, function (err, docs) {
+            // for (var i = 0; i < docs.length; i++) {
+            //     docs[i]["billDate"] = docs[i]["billDate"].toISOString();
+            // }
+            // docs.sort(function(a, b) {
+            //     a = new Date(a.billDate);
+            //     b = new Date(b.billDate);
+            //     return a>b ? -1 : a<b ? 1 : 0;
+            //     // return b - a;
+            // });
+            // console.log(docs);
+            // for (var i = 0; i < docs.length; i++) {
+            //     docs[i]["billDate"] = new Date(docs[i]["billDate"]);
+            // }
             for (var i = 0; i < docs.length; i++) {
                 if (docs[i]["billDate"]) {
-                    day = (docs[i]["billDate"].getDay() < 10) ? "0" + docs[i]["billDate"].getDay() : docs[i]["billDate"].getDay();
+                    day = (docs[i]["billDate"].getDate() < 10) ? "0" + docs[i]["billDate"].getDate() : docs[i]["billDate"].getDate();
                     month = ((docs[i]["billDate"].getMonth() + 1) < 10) ? "0" + (docs[i]["billDate"].getMonth() + 1) : (docs[i]["billDate"].getMonth() + 1);
                     docs[i]["billDate"] = day + "/" + month + "/" + docs[i]["billDate"].getFullYear();
                 }
@@ -77,7 +90,7 @@ function api (app) {
             // seconds = (seconds < 10) ? "0" + seconds : seconds;
             // doc["date"] = day + ", " + date + "-" + month + "-" + year + ", " + hours + ":" + minutes + ":" + seconds + " " + ampm;
             if (doc["billDate"]) {
-                day = (doc["billDate"].getDay() < 10) ? "0" + doc["billDate"].getDay() : doc["billDate"].getDay();
+                day = (doc["billDate"].getDate() < 10) ? "0" + doc["billDate"].getDate() : doc["billDate"].getDate();
                 month = ((doc["billDate"].getMonth() + 1) < 10) ? "0" + (doc["billDate"].getMonth() + 1) : (doc["billDate"].getMonth() + 1);
                 doc["billDate"] = day + "/" + month + "/" + doc["billDate"].getFullYear();
             }
@@ -89,7 +102,8 @@ function api (app) {
         date = new Date(Date.now());
         request.body["date"] = date.toISOString();
         if (request.body["billDate"]) {
-            var billDMY = request.body["billDate"].split("-");
+            var billDMY = request.body["billDate"].split("/");
+            console.log(billDMY);
             request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
         }
         db.bills.insert(request.body, function (err, doc) {
@@ -102,7 +116,8 @@ function api (app) {
     app.put("/api/bill/:id", function (request, response) {
         var id = request.params.id;
         if (request.body["billDate"]) {
-            var billDMY = request.body["billDate"].split("-");
+            var billDMY = request.body["billDate"].split("/");
+            console.log(billDMY);
             request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
         }
         db.bills.findAndModify({

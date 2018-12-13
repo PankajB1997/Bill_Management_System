@@ -20,7 +20,8 @@ for (var i = 0; i < limit; i++) {
     var vendorName = getRandomItem(vendorNames);
     var billTo = getRandomItem(billTos);
     var billNo = billNos[i % billNos.length];
-    var billDate = getRandomItem(billDates).split("/");
+    var billDate = billDates[i % billDates.length].split("/");
+    // var billDate = getRandomItem(billDates).split("/");
     billDate = new Date(billDate[2], billDate[1]-1, billDate[0]);
 
     var item = {
