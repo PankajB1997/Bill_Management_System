@@ -23,7 +23,7 @@
         vm.hoCodes = [];
         vm.itemDescriptions = [];
         vm.billTos = [
-            { label: "Billed To", disabled: true },
+            // { label: "---Select---", disabled: true },
             { label: "Vision World Pvt. Ltd." },
             { label: "Specs World Pvt. Ltd." },
             { label: "The Himalaya Optical Company" },
@@ -50,27 +50,27 @@
             for (var val in vm.vendorNames) {
                 vm.vendorNames[val] = { label: vm.vendorNames[val] };
             }
-            vm.vendorNames.unshift({ label: "---Select---", "disabled": true });
-            vm.model.vendorName = vm.vendorNames[0].label;
+            // vm.vendorNames.unshift({ label: "---Select---", "disabled": true });
+            // vm.model.vendorName = vm.vendorNames[0].label;
             vm.vendorItemCodes.sort();
             for (var val in vm.vendorItemCodes) {
                 vm.vendorItemCodes[val] = { label: vm.vendorItemCodes[val] };
             }
-            vm.vendorItemCodes.unshift({ label: "---Select---", "disabled": true });
-            vm.model.vendorItemCode = vm.vendorItemCodes[0].label;
+            // vm.vendorItemCodes.unshift({ label: "---Select---", "disabled": true });
+            // vm.model.vendorItemCode = vm.vendorItemCodes[0].label;
             vm.hoCodes.sort();
             for (var val in vm.hoCodes) {
                 vm.hoCodes[val] = { label: vm.hoCodes[val] };
             }
-            vm.hoCodes.unshift({ label: "---Select---", "disabled": true });
-            vm.model.hoCode = vm.hoCodes[0].label;
+            // vm.hoCodes.unshift({ label: "---Select---", "disabled": true });
+            // vm.model.hoCode = vm.hoCodes[0].label;
             vm.itemDescriptions.sort();
             for (var val in vm.itemDescriptions) {
                 vm.itemDescriptions[val] = { label: vm.itemDescriptions[val] };
             }
-            vm.itemDescriptions.unshift({ label: "---Select---", "disabled": true });
-            vm.model.itemDescription = vm.itemDescriptions[0].label;
-            vm.model.billTo = vm.billTos[0].label;
+            // vm.itemDescriptions.unshift({ label: "---Select---", "disabled": true });
+            // vm.model.itemDescription = vm.itemDescriptions[0].label;
+            // vm.model.billTo = vm.billTos[0].label;
         });
 
         function save() {

@@ -18,7 +18,7 @@
         vm.hoCodes = [];
         vm.itemDescriptions = [];
         vm.billTos = [
-            { label: "Billed To", disabled: true },
+            { label: "---Select---", disabled: true },
             { label: "Vision World Pvt. Ltd." },
             { label: "Specs World Pvt. Ltd." },
             { label: "The Himalaya Optical Company" },
