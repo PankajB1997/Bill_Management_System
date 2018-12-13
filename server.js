@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 
 var app = express();
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/src/public"));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -10,7 +10,7 @@ app.use((req, res, next) => {
   // -----------------------------------------------------------------------
   // authentication middleware
 
-  const auth = {login: 'BILL_MGNT', password: 'BILL_MGNT_2'}
+  const auth = { login: 'BILL_MGNT', password: 'BILL_MGNT_2' }
 
   // parse login and password from headers
   const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
