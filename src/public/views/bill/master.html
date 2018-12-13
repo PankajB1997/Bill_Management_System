@@ -1,8 +1,8 @@
-<h2>Add New Master Data</h2>
+<h2>Master Data</h2>
 
 <form name="form" novalidate ng-submit="vm.save()">
     <div class="form-horizontal">
-        <h4>Master Data</h4>
+        <h4>Add New Master Data</h4>
         <hr />
 
         <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
@@ -46,15 +46,23 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" ng-disabled="!form.$valid" class="btn btn-primary" />
+                &nbsp;
+                |
+                &nbsp;
                 <a ng-click="vm.clear()">Clear</a>
+                &nbsp;
+                |
+                &nbsp;
+                <a ng-click="vm.cancel()">Back to Home</a>
             </div>
         </div>
     </div>
 </form>
 
 <div>
+    <br>
     <h4>Current Master Data</h4>
-    <hr />
+    <br />
     <table class="table table-hover">
         <tr>
             <th>No.</th>

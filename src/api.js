@@ -139,6 +139,16 @@ function api (app) {
         });
     });
 
+    app.get("/api/master/:id", function (request, response) {
+        var id = request.params.id;
+
+        db.billsMaster.findOne({ _id: mongojs.ObjectId(id) }, function (err, doc) {
+            if (err)
+                console.log("Error: " + err);
+            response.json(doc);
+        });
+    });
+
     app.post("/api/master", function (request, response) {
         db.billsMaster.insert(request.body, function (err, doc) {
             if (err)
@@ -153,6 +163,28 @@ function api (app) {
         db.billsMaster.remove({ _id: mongojs.ObjectId(id) }, function (err, doc) {
             if (err)
                 console.log("Error: " + err);
+            response.json(doc);
+        });
+    });
+
+    app.put("/api/master/:id", function (request, response) {
+        var id = request.params.id;
+
+        db.billsMaster.findAndModify({
+            query: {
+                _id: mongojs.ObjectId(id)
+            },
+            update: {
+                $set: {
+                    vendorName: request.body.vendorName,
+                    vendorItemCode: request.body.vendorItemCode,
+                    hoCode: request.body.hoCode,
+                    itemDescription: request.body.itemDescription,
+                    negotiatedRate: request.body.negotiatedRate
+                }
+            },
+            new: true
+        }, function (err, doc) {
             response.json(doc);
         });
     });

@@ -19,6 +19,7 @@
         vm.edit = edit;
         vm.remove = remove;
         vm.save = save;
+        vm.clear = clear;
         vm.cancel = cancel;
 
         function edit(id) {
@@ -46,6 +47,10 @@
         function clear() {
             vm.model = {};
             // $location.path("/");
+        };
+
+        function cancel() {
+            $location.path("/");
         };
     };
 })(angular.module("billManager"));

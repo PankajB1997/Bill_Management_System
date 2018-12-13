@@ -3,10 +3,12 @@
 
     app.controller("MasterEditController", MasterEditController);
 
-    MasterEditController.$inject = ["$location", "toaster", "RepositoryService"];
+    MasterEditController.$inject = ["$routeParams", "$location", "toaster", "RepositoryService"];
 
-    function MasterEditController($location, toaster, repository) {
+    function MasterEditController($routeParams, $location, toaster, repository) {
         var vm = this;
+
+        var id = $routeParams.id;
 
         vm.model = {};
 
