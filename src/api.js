@@ -103,7 +103,6 @@ function api (app) {
         request.body["date"] = date.toISOString();
         if (request.body["billDate"]) {
             var billDMY = request.body["billDate"].split("/");
-            console.log(billDMY);
             request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
         }
         db.bills.insert(request.body, function (err, doc) {
@@ -117,7 +116,6 @@ function api (app) {
         var id = request.params.id;
         if (request.body["billDate"]) {
             var billDMY = request.body["billDate"].split("/");
-            console.log(billDMY);
             request.body["billDate"] = new Date(billDMY[2], billDMY[1]-1, billDMY[0]);
         }
         db.bills.findAndModify({

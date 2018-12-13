@@ -7,7 +7,7 @@
 
     function preprocessor(objArray) {
         //TODO: Need to preprocess data to make it suitable for appearance in Excel
-        
+
         return objArray;
     }
 
@@ -38,20 +38,52 @@
         var vm = this;
         vm.bills = [];
         vm.search = {};
+
         repository.getBills(vm.search).then(function (result) {
             vm.bills = result.data;
         });
+
+        vm.vendorNames = [];
+        vm.vendorItemCodes = [];
+        vm.hoCodes = [];
+        vm.itemDescriptions = [];
+        vm.billTos = [ "Vision World Pvt. Ltd.", "Specs World Pvt. Ltd.", "The Himalaya Optical Company", "Himalaya Vision Crafter Pvt. Ltd." ];
+
+        repository.getMasterData().then(function (result) {
+            for (var row in result.data) {
+                if (vm.vendorNames.includes(result.data[row]["vendorName"]) == false) {
+                    vm.vendorNames.push(result.data[row]["vendorName"]);
+                }
+                if (result.data[row]["vendorItemCode"] && vm.vendorItemCodes.includes(result.data[row]["vendorItemCode"]) == false) {
+                    vm.vendorItemCodes.push(result.data[row]["vendorItemCode"]);
+                }
+                if (result.data[row]["hoCode"] && vm.hoCodes.includes(result.data[row]["hoCode"]) == false) {
+                    vm.hoCodes.push(result.data[row]["hoCode"]);
+                }
+                if (vm.itemDescriptions.includes(result.data[row]["itemDescription"]) == false) {
+                    vm.itemDescriptions.push(result.data[row]["itemDescription"]);
+                }
+            }
+            vm.vendorNames.sort();
+            vm.vendorItemCodes.sort();
+            vm.hoCodes.sort();
+            vm.itemDescriptions.sort();
+        });
+
         vm.add = function () {
             $location.path("/bill/add/");
         };
+
         vm.addMaster = function () {
             $location.path("/bill/add-master/");
-        }
+        };
+
         vm.search = function () {
             repository.getBills(vm.search).then(function (result) {
                 vm.bills = result.data;
             });
         };
+
         vm.exportToExcel = function () {
             repository.getBills(vm.search).then(function (result) {
                 var csvData = ConvertToCSV(result.data);
@@ -65,13 +97,16 @@
                 a.download = 'results.csv';
                 a.click();
             });
-        }
+        };
+
         vm.details = function (id) {
             $location.path("/bill/details/" + id);
         };
+
         vm.remove = function (id) {
             $location.path("/bill/remove/" + id);
         };
+
         vm.downloadClaim = function (id) {
             repository.getBill(id).then(function (result) {
                 const doc = new jsPDF();
@@ -81,6 +116,6 @@
                 doc.text("Billed To: " + result.data["billTo"], 10, 40);
                 doc.save(result.data["vendorName"] + ".pdf");
             });
-        }
+        };
     };
 })(angular.module("billManager"));
