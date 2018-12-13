@@ -67,7 +67,7 @@
         <th>Bill No.</th>
         <th>Bill Date</th>
         <th>Bill Amount</th>
-        <th>Claim Amount</th>
+        <th><font color="red">Claim Amount</font></th>
         <th></th>
     </tr>
     <tr ng-repeat="bill in vm.bills">
@@ -77,7 +77,8 @@
         <td>{{ bill.billNo }}</td>
         <td>{{ bill.billDate }}</td>
         <td>{{ bill.billAmount }}</td>
-        <td>{{ bill.claimAmount }}</td>
+        <!-- TODO: Add flexibility for green, red and black colours -->
+        <td><font color="red">{{ bill.claimAmount }}</font></td>
         <td>
             <div class="dropdown">
                 <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">

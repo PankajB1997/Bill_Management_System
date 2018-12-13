@@ -19,11 +19,7 @@
         });
 
         function remove() {
-            // toaster.pop("wait", "Removing...");
-
             repository.deleteBill(id).then(function (result) {
-                // toaster.pop("success", "The contact was removed successfully");
-
                 $location.path("/");
             });
         };

@@ -37,14 +37,7 @@ function api (app) {
             }
         }
 
-        var fields = {
-            vendorName: 1,
-            billTo: 1,
-            billNo: 1,
-            billDate: 1
-        };
-
-        var result = db.bills.find(find, fields).sort({ "billDate": -1 }).limit(pageSize, function (err, docs) {
+        var result = db.bills.find(find).sort({ "billDate": -1 }).limit(pageSize, function (err, docs) {
             // for (var i = 0; i < docs.length; i++) {
             //     docs[i]["billDate"] = docs[i]["billDate"].toISOString();
             // }

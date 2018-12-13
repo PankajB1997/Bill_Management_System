@@ -69,11 +69,7 @@
         });
 
         function save() {
-            // toaster.pop("wait", "Saving...");
-
             repository.createBill(vm.model).then(function (result) {
-                // toaster.pop("success", "The contact was saved successfully");
-
                 $location.path("/");
             });
         };
