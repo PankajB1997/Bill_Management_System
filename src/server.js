@@ -32,8 +32,6 @@ app.use((req, res, next) => {
 var rest = require("./api");
 var api = new rest(app);
 
-var port = 3000;
-
-app.listen(port);
-
-console.log("Server running on port " + port);
+app.listen(process.env.PORT || 3000, function () {
+    console.log("Server running on port " + port);
+});
