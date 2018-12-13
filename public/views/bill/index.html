@@ -67,6 +67,7 @@
         <th>Bill No.</th>
         <th>Bill Date</th>
         <th>Bill Amount</th>
+        <th>Payment Status</th>
         <th><font color="red">Claim Amount</font></th>
         <th></th>
     </tr>
@@ -77,6 +78,7 @@
         <td>{{ bill.billNo }}</td>
         <td>{{ bill.billDate }}</td>
         <td>{{ bill.totalBillAmount }}</td>
+        <td>{{ bill.paymentStatus }}</td>
         <!-- TODO: Add flexibility for green, red and black colours -->
         <td><font color="red">{{ bill.totalClaimAmount }}</font></td>
         <td>
