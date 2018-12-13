@@ -1,0 +1,52 @@
+<h2>Edit Master Data</h2>
+
+<form name="form" novalidate ng-submit="vm.save()">
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
+            <label for="vendorName" class="control-label col-md-2">Vendor Name</label>
+            <div class="col-md-10">
+                <input type="text" name="vendorName" class="form-control" required ng-model="vm.model.vendorName" />
+                <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.vendorItemCode.$invalid }">
+            <label for="vendorItemCode" class="control-label col-md-2">Vendor Item Code</label>
+            <div class="col-md-10">
+                <input type="text" name="vendorItemCode" class="form-control" ng-model="vm.model.vendorItemCode" />
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.hoCode.$invalid }">
+            <label for="hoCode" class="control-label col-md-2">H.O. Code</label>
+            <div class="col-md-10">
+                <input type="text" name="hoCode" class="form-control" ng-model="vm.model.hoCode" />
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.itemDescription.$invalid }">
+            <label for="itemDescription" class="control-label col-md-2">Product Description</label>
+            <div class="col-md-10">
+                <input type="text" name="itemDescription" class="form-control" required ng-model="vm.model.itemDescription" />
+                <span class="text-danger help-block" ng-show="form.itemDescription.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.negotiatedRate.$invalid }">
+            <label for="negotiatedRate" class="control-label col-md-2">Negotiated Rate</label>
+            <div class="col-md-10">
+                <input type="text" name="negotiatedRate" class="form-control" required ng-model="vm.model.negotiatedRate" />
+                <span class="text-danger help-block" ng-show="form.negotiatedRate.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" ng-disabled="!form.$valid" class="btn btn-primary" />
+                <a ng-click="vm.cancel()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</form>

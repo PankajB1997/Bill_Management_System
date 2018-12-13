@@ -1,0 +1,67 @@
+<!-- <h2>Remove</h2> -->
+
+<h3>Are you sure you want to remove this bill from records?</h3>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Bill No.</dt>
+        <dd>{{ vm.model.billNo }}</dd>
+        <dt>Bill Date</dt>
+        <dd>{{ vm.model.billDate }}</dd>
+        <dt>Vendor Name</dt>
+        <dd>{{ vm.model.vendorName }}</dd>
+        <dt>Billed To</dt>
+        <dd>{{ vm.model.billTo }}</dd>
+        <!-- <dt>Originally Added On</dt>
+        <dd>{{ vm.model.date }}</dd> -->
+    </dl>
+    <p><b>Products:</b></p>
+    <table class="table table-hover">
+        <tr>
+            <th>No.</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Billing Unit</th>
+            <th>Rate</th>
+            <th>Billing</th>
+            <th>GST</th>
+            <th>Bill Amount</th>
+            <th>Rate Difference</th>
+            <th>Claim Amount</th>
+        </tr>
+        <tr ng-repeat="product in vm.model.items">
+            <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
+            <td>{{ product.itemDescription }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.billingUnit }}</td>
+            <td>{{ product.rate }}</td>
+            <td>{{ product.billing }}</td>
+            <td>{{ product.gst }}</td>
+            <td>{{ product.billAmount }}</td>
+            <td>{{ product.rateDifference }}</td>
+            <td>{{ product.claimAmount }}</td>
+        </tr>
+    </table>
+    <dl class="dl-horizontal">
+        <dt>Total Bill Amount</dt>
+        <dd>{{ vm.model.totalBillAmount }}</dd>
+        <!-- TODO: Add flexibility for green, red and black colours -->
+        <dt><font color="red">Total Claim Amount</font></dt>
+        <dd><font color="red">{{ vm.model.totalClaimAmount }}</font></dd>
+        <dt>&nbsp;</dt>
+        <dd>&nbsp;</dd>
+        <dt>Amount Paid</dt>
+        <dd>{{ vm.model.amountPaid }}</dd>
+        <dt>Mode of Payment</dt>
+        <dd>{{ vm.model.modeOfPayment }}</dd>
+        <dt>Instrument No.</dt>
+        <dd>{{ vm.model.instrumentNo }}</dd>
+        <dt>Payment Status</dt>
+        <dd>{{ vm.model.paymentStatus }}</dd>
+    </dl>
+    <div class="form-actions no-color">
+        <a ng-click="vm.remove(vm.model._id)" class="btn btn-default">Delete</a>
+        <a ng-click="vm.cancel()" class="btn btn-small">Cancel</a>
+    </div>
+</div>

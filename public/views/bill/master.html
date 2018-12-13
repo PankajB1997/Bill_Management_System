@@ -1,0 +1,95 @@
+<h2>Master Data</h2>
+
+<form name="form" novalidate ng-submit="vm.save()">
+    <div class="form-horizontal">
+        <h4>Add New Master Data</h4>
+        <hr />
+
+        <div class="form-group" ng-class="{ 'has-error': form.vendorName.$invalid }">
+            <label for="vendorName" class="control-label col-md-2">Vendor Name</label>
+            <div class="col-md-10">
+                <input type="text" name="vendorName" class="form-control" required ng-model="vm.model.vendorName" />
+                <span class="text-danger help-block" ng-show="form.vendorName.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.vendorItemCode.$invalid }">
+            <label for="vendorItemCode" class="control-label col-md-2">Vendor Item Code</label>
+            <div class="col-md-10">
+                <input type="text" name="vendorItemCode" class="form-control" ng-model="vm.model.vendorItemCode" />
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.hoCode.$invalid }">
+            <label for="hoCode" class="control-label col-md-2">H.O. Code</label>
+            <div class="col-md-10">
+                <input type="text" name="hoCode" class="form-control" ng-model="vm.model.hoCode" />
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.itemDescription.$invalid }">
+            <label for="itemDescription" class="control-label col-md-2">Product Description</label>
+            <div class="col-md-10">
+                <input type="text" name="itemDescription" class="form-control" required ng-model="vm.model.itemDescription" />
+                <span class="text-danger help-block" ng-show="form.itemDescription.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error': form.negotiatedRate.$invalid }">
+            <label for="negotiatedRate" class="control-label col-md-2">Negotiated Rate</label>
+            <div class="col-md-10">
+                <input type="text" name="negotiatedRate" class="form-control" required ng-model="vm.model.negotiatedRate" />
+                <span class="text-danger help-block" ng-show="form.negotiatedRate.$error.required">(*) Required</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" ng-disabled="!form.$valid" class="btn btn-primary" />
+                &nbsp;
+                |
+                &nbsp;
+                <a ng-click="vm.clear()">Clear</a>
+                &nbsp;
+                |
+                &nbsp;
+                <a ng-click="vm.cancel()">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <br>
+    <h4>Current Master Data</h4>
+    <br />
+    <table class="table table-hover">
+        <tr>
+            <th>No.</th>
+            <th>Vendor Name</th>
+            <th>Vendor Code</th>
+            <th>H.O. Code</th>
+            <th>Item Description</th>
+            <th>Negotiated Rate</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="data in vm.master">
+            <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
+            <td>{{ data.vendorName }}</td>
+            <td>{{ data.vendorItemCode }}</td>
+            <td>{{ data.hoCode }}</td>
+            <td>{{ data.itemDescription }}</td>
+            <td>{{ data.negotiatedRate }}</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-primary btn-lg dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a ng-click="vm.edit(data._id)">Edit</a></li>
+                        <li><a ng-click="vm.remove(data._id)">Remove</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
