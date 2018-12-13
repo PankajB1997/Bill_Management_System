@@ -7,8 +7,8 @@
 
     function preprocessor(objArray) {
         var resArray = [];
-        var properties = ["billNo", "billDate", "vendorName", "billTo", "totalBillAmount", "totalClaimAmount", "amountPaid", "modeOfPayment", "instrumentNo"];
-        var propertyLabels = ["BILL NO.", "BILL DATE", "VENDOR NAME", "BILL TO", "TOTAL BILL AMOUNT", "TOTAL CLAIM AMOUNT", "AMT PAID", "MODE OF PAYMENT", "INSTRUMENT NO."];
+        var properties = ["billNo", "billDate", "vendorName", "billTo", "totalBillAmount", "totalClaimAmount", "modeOfPayment", "instrumentNo", "paymentStatus"];
+        var propertyLabels = ["BILL NO.", "BILL DATE", "VENDOR NAME", "BILL TO", "TOTAL BILL AMOUNT", "TOTAL CLAIM AMOUNT", "MODE OF PAYMENT", "INSTRUMENT NO.", "PAYMENT STATUS"];
         var itemProperties = ["itemDescription", "quantity", "billingUnit", "rate", "billing", "gst", "billAmount", "rateDifference", "claimAmount"];
         var itemPropertyLabels = ["PRODUCT", "QTY", "BILLING UNIT", "RATE", "BILLING", "GST", "BILL AMOUNT", "RATE DIFF", "CLAIM AMT"];
 
