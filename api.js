@@ -120,7 +120,13 @@ function api (app) {
                     vendorName: request.body.vendorName,
                     billTo: request.body.billTo,
                     billNo: request.body.billNo,
-                    billDate: request.body.billDate
+                    billDate: request.body.billDate,
+                    items: request.body.items,
+                    totalBillAmount: request.body.totalBillAmount,
+                    totalClaimAmount: request.body.totalClaimAmount,
+                    modeOfPayment: request.body.modeOfPayment,
+                    instrumentNo: request.body.instrumentNo,
+                    paymentStatus: request.body.paymentStatus
                 }
             },
             new: true

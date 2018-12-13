@@ -167,7 +167,6 @@
                 var a = document.createElement("a");
                 a.setAttribute('style', 'display:none;');
                 document.body.appendChild(a);
-                // TODO: Make sure data appears in a presentable manner inside the csv
                 var blob = new Blob([csvData], { type: 'text/csv' });
                 var url = window.URL.createObjectURL(blob);
                 a.href = url;
@@ -193,6 +192,7 @@
                 doc.text("Billed To: " + result.data["billTo"], 10, 40);
                 doc.text("Total Bill Amount: " + result.data["totalBillAmount"], 10, 50);
                 doc.text("Total Claim Amount: " + result.data["totalClaimAmount"], 10, 60);
+                doc.text("Payment Status: " + result.data["paymentStatus"], 10, 70);
                 doc.save(result.data["vendorName"] + ".pdf");
             });
         };
