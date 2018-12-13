@@ -1,7 +1,7 @@
 function api (app) {
     var mongojs = require("mongojs");
 
-    var db = mongojs("billManager", ["bills"]);
+    var db = mongojs("pankajb:PankajB1997@ds117128.mlab.com:17128/heroku_knfwsjjr", ["bills", "billsMaster"]);
 
     days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
     months = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
