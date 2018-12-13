@@ -17,8 +17,9 @@
         var str = '';
         var row = "";
         var properties = ["billNo", "billDate", "vendorName", "billTo"];
+        var propertyLabels = ["BILL NO.", "BILL DATE", "VENDOR NAME", "BILL TO"];
         for (var index in properties) {
-            row += properties[index] + ',';
+            row += propertyLabels[index] + ',';
         }
         row = row.slice(0, -1);
         str += row + '\r\n';
@@ -134,7 +135,19 @@
         }
 
         vm.exportToExcel = function () {
-            repository.getBills(vm.search).then(function (result) {
+            var searchString = {};
+            searchString.billNo = vm.search.billNo;
+            searchString.billStartDate = vm.search.billStartDate;
+            searchString.billEndDate = vm.search.billEndDate;
+            searchString.vendorName = vm.search.vendorName;
+            searchString.billTo = vm.search.billTo;
+            if (searchString.vendorName == "Vendor Name") {
+                searchString.vendorName = null;
+            }
+            if (searchString.billTo == "Billed To") {
+                searchString.billTo = null;
+            }
+            repository.getBills(searchString).then(function (result) {
                 var csvData = ConvertToCSV(result.data);
                 var a = document.createElement("a");
                 a.setAttribute('style', 'display:none;');
