@@ -200,6 +200,26 @@ function api (app) {
             response.json(doc);
         });
     });
+
+    app.get("/api/gst", function (request, response) {
+        db.gst.find({}, function (err, doc) {
+            if (err)
+                console.log("Error: " + err);
+            response.json(doc[0]);
+        });
+    });
+
+    app.post("/api/gst", function (request, response) {
+        db.gst.remove({}, function(err, doc) {
+            if (err)
+                console.log("Error: " + err);
+            db.gst.insert(request.body, function (err, doc) {
+                if (err)
+                    console.log("Error: " + err);
+                response.json(doc[0]);
+            });
+        });
+    });
 };
 
 module.exports = api;

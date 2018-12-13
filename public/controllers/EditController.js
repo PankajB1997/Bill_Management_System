@@ -74,11 +74,14 @@
         });
 
         function save() {
-            // toaster.pop("wait", "Saving...");
-
             repository.updateBill(id, vm.model).then(function (result) {
-                // toaster.pop("success", "The changes were saved successfully");
-
+                // TODO: logic for item and payment fields
+                if (vm.model.modeOfPayment || vm.model.instrumentNo) {
+                    vm.model.paymentStatus = "Paid";
+                }
+                else {
+                    vm.model.paymentStatus = "Unpaid";
+                }
                 $location.path("/bill/details/" + id);
             });
         };

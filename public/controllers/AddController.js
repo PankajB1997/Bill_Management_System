@@ -70,6 +70,13 @@
 
         function save() {
             repository.createBill(vm.model).then(function (result) {
+                // TODO: logic for item and payment fields
+                if (vm.model.modeOfPayment || vm.model.instrumentNo) {
+                    vm.model.paymentStatus = "Paid";
+                }
+                else {
+                    vm.model.paymentStatus = "Unpaid";
+                }
                 $location.path("/");
             });
         };

@@ -20,6 +20,8 @@
         svc.addNewMasterData = addNewMasterData;
         svc.deleteMasterData = deleteMasterData;
         svc.updateMasterData = updateMasterData;
+        svc.getGSTRate = getGSTRate;
+        svc.updateGSTRate = updateGSTRate;
 
         function getBills(fields) {
             var queryString = [];
@@ -89,6 +91,14 @@
 
         function updateMasterData(id, model) {
             return $http.put([apiUrl, "master", id].join("/"), model);
+        };
+
+        function getGSTRate() {
+            return $http.get([apiUrl, "gst"].join("/"));
+        };
+
+        function updateGSTRate(model) {
+            return $http.post([apiUrl, "gst"].join("/"), model);
         };
     };
 })(angular.module("billManager"));
