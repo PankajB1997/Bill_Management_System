@@ -1,5 +1,5 @@
 var mongojs = require("mongojs");
-var db = mongojs("billManager", ["bills"]);
+var db = mongojs("pankajb:PankajB1997@ds117128.mlab.com:17128/heroku_knfwsjjr", ["bills", "billsMaster"]);
 
 var limit = 10;
 
