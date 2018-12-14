@@ -131,8 +131,8 @@
                 vm.model.totalBillAmount += parseFloat(vm.model.items[item].billAmount);
                 vm.model.totalClaimAmount += parseFloat(vm.model.items[item].claimAmount);
             }
-            vm.model.totalBillAmount = "Rs. " + (vm.model.totalBillAmount).toFixed(2);
-            vm.model.totalClaimAmount = "Rs. " + (vm.model.totalClaimAmount).toFixed(2);
+            vm.model.totalBillAmount = "" + (vm.model.totalBillAmount).toFixed(2);
+            vm.model.totalClaimAmount = "" + (vm.model.totalClaimAmount).toFixed(2);
             if (vm.model.modeOfPayment || vm.model.instrumentNo) {
                 vm.model.paymentStatus = "Paid";
                 if (vm.model.modeOfPayment){}
