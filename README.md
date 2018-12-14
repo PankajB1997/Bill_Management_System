@@ -2,7 +2,7 @@
 
 A Bill Manager App developed for Himalaya Optical company, using MEAN stack (MongoDB, ExpressJS, AngularJS, NodeJS).
 
-Live demo available at: https://himalaya-bms.herokuapp.com/#!/
+Live demo link (test version with random data): https://himalaya-bms.herokuapp.com/#!/
 
 Some screenshots:
 
