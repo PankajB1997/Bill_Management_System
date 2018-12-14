@@ -93,14 +93,14 @@
             repository.getOriginalItemRate(find).then(function(result) {
                 vm.model.items.push({
                     itemDescription: result.data[0].itemDescription,
-                    quantity: parseFloat(vm.tempQuantity),
+                    quantity: parseFloat(vm.tempQuantity).toFixed(2),
                     billingUnit: vm.tempBillingUnit,
-                    rate: parseFloat(vm.tempRate),
-                    billing: parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate),
-                    gst: (vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)),
-                    billAmount: (parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)) + ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate))),
-                    rateDifference: parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate),
-                    claimAmount: parseFloat(vm.tempQuantity) * (parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate)),
+                    rate: parseFloat(vm.tempRate).toFixed(2),
+                    billing: (parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)).toFixed(2),
+                    gst: ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate))).toFixed(2),
+                    billAmount: ((parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)) + ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)))).toFixed(2),
+                    rateDifference: (parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate)).toFixed(2),
+                    claimAmount: (parseFloat(vm.tempQuantity) * (parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate))).toFixed(2),
                     remove: false
                 });
                 vm.tempHoCode = vm.hoCodes[0].label;
@@ -126,9 +126,11 @@
             vm.model.totalBillAmount = 0.0;
             vm.model.totalClaimAmount = 0.0;
             for(var item in vm.model.items) {
-                vm.model.totalBillAmount += vm.model.items[item].billAmount;
-                vm.model.totalClaimAmount += vm.model.items[item].claimAmount;
+                vm.model.totalBillAmount += parseFloat(vm.model.items[item].billAmount);
+                vm.model.totalClaimAmount += parseFloat(vm.model.items[item].claimAmount);
             }
+            vm.model.totalBillAmount = "₹ " + (vm.model.totalBillAmount).toFixed(2);
+            vm.model.totalClaimAmount = "₹ " + (vm.model.totalClaimAmount).toFixed(2);
             if (vm.model.modeOfPayment || vm.model.instrumentNo) {
                 vm.model.paymentStatus = "Paid";
                 if (vm.model.modeOfPayment){}
