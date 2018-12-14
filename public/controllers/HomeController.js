@@ -13,13 +13,13 @@
         var itemPropertyLabels = ["PRODUCT", "QTY", "BILLING UNIT", "RATE", "BILLING", "GST", "BILL AMOUNT", "RATE DIFF", "CLAIM AMT"];
 
         for(var row in objArray) {
-            var bill = {};
-            for(var i=0; i<properties.length; i++) {
-                bill[propertyLabels[i]] = objArray[row][properties[i]];
-            }
             for(var product in objArray[row].items) {
+                var bill = {};
+                for(var i=0; i<properties.length; i++) {
+                    bill[propertyLabels[i]] = (typeof objArray[row][properties[i]] == "undefined" ? "" : objArray[row][properties[i]]);
+                }
                 for(var j=0; j<itemProperties.length; j++) {
-                    bill[itemPropertyLabels[i]] = objArray[row].items[product][itemProperties[i]];
+                    bill[itemPropertyLabels[j]] = (typeof objArray[row].items[product][itemProperties[j]] == "undefined" ? "" : objArray[row].items[product][itemProperties[j]]);
                 }
                 resArray.push(bill);
             }
