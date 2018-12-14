@@ -23,11 +23,16 @@
         vm.hoCodes = [];
         vm.itemDescriptions = [];
         vm.billTos = [
-            { label: "", disabled: true },
+            { label: "---Select---", disabled: true },
             { label: "Vision World Pvt. Ltd." },
             { label: "Specs World Pvt. Ltd." },
             { label: "The Himalaya Optical Company" },
             { label: "Himalaya Vision Crafter Pvt. Ltd." }
+        ];
+        vm.billingUnits = [
+            { label: "---Select---", disabled: true },
+            { label: "" },
+            { label: "BOX" }
         ];
         repository.getMasterData().then(function (result) {
             for (var row in result.data) {
@@ -50,27 +55,28 @@
             for (var val in vm.vendorNames) {
                 vm.vendorNames[val] = { label: vm.vendorNames[val] };
             }
-            vm.vendorNames.unshift({ label: "", "disabled": true });
+            vm.vendorNames.unshift({ label: "---Select---", "disabled": true });
             vm.model.vendorName = vm.vendorNames[0].label;
             vm.vendorItemCodes.sort();
             for (var val in vm.vendorItemCodes) {
                 vm.vendorItemCodes[val] = { label: vm.vendorItemCodes[val] };
             }
             vm.vendorItemCodes.unshift({ label: "---Select---", "disabled": true });
-            vm.model.vendorItemCode = vm.vendorItemCodes[0].label;
             vm.hoCodes.sort();
             for (var val in vm.hoCodes) {
                 vm.hoCodes[val] = { label: vm.hoCodes[val] };
             }
             vm.hoCodes.unshift({ label: "---Select---", "disabled": true });
-            vm.model.hoCode = vm.hoCodes[0].label;
             vm.itemDescriptions.sort();
             for (var val in vm.itemDescriptions) {
                 vm.itemDescriptions[val] = { label: vm.itemDescriptions[val] };
             }
             vm.itemDescriptions.unshift({ label: "---Select---", "disabled": true });
-            vm.model.itemDescription = vm.itemDescriptions[0].label;
             vm.model.billTo = vm.billTos[0].label;
+            vm.tempHoCode = vm.hoCodes[0].label;
+            vm.tempVendorItemCode = vm.vendorItemCodes[0].label;
+            vm.tempProduct = vm.itemDescriptions[0].label;
+            vm.tempBillingUnit = vm.billingUnits[0].label;
         });
 
         vm.addRow = function () {
@@ -84,25 +90,26 @@
             else {
                 find.itemDescription = vm.tempProduct;
             }
-            var rateAsPerDatabase = 0.0;
             repository.getOriginalItemRate(find).then(function(result) {
-                rateAsPerDatabase = parseFloat(result.data[0].negotiatedRate);
+                vm.model.items.push({
+                    itemDescription: result.data[0].itemDescription,
+                    quantity: parseFloat(vm.tempQuantity),
+                    billingUnit: vm.tempBillingUnit,
+                    rate: parseFloat(vm.tempRate),
+                    billing: parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate),
+                    gst: (vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)),
+                    billAmount: (parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)) + ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate))),
+                    rateDifference: parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate),
+                    claimAmount: parseFloat(vm.tempQuantity) * (parseFloat(vm.tempRate) - parseFloat(result.data[0].negotiatedRate)),
+                    remove: false
+                });
+                vm.tempHoCode = vm.hoCodes[0].label;
+                vm.tempVendorItemCode = vm.vendorItemCodes[0].label;
+                vm.tempProduct = vm.itemDescriptions[0].label;
+                vm.tempBillingUnit = vm.billingUnits[0].label;
+                vm.tempQuantity = "";
+                vm.tempRate = "";
             });
-
-            vm.model.items.push({
-                itemDescription: vm.tempProduct,
-                quantity: parseFloat(vm.tempQuantity),
-                billingUnit: vm.tempBillingUnit,
-                rate: parseFloat(vm.tempRate),
-                billing: parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate),
-                gst: (vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)),
-                billAmount: (parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)) + ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate))),
-                rateDifference: parseFloat(vm.tempRate) - rateAsPerDatabase,
-                claimAmount: parseFloat(vm.tempQuantity) * (parseFloat(vm.tempRate) - parseFloat(rateAsPerDatabase)),
-                remove: false
-            });
-
-            console.log(vm.model.items);
         }
 
         vm.removeRow = function () {
@@ -116,11 +123,11 @@
         }
 
         function save() {
-            vm.totalBillAmount = 0.0;
-            vm.totalClaimAmount = 0.0;
+            vm.model.totalBillAmount = 0.0;
+            vm.model.totalClaimAmount = 0.0;
             for(var item in vm.model.items) {
-                vm.totalBillAmount += vm.model.items[item].billAmount;
-                vm.totalClaimAmount += vm.model.items[item].claimAmount;
+                vm.model.totalBillAmount += vm.model.items[item].billAmount;
+                vm.model.totalClaimAmount += vm.model.items[item].claimAmount;
             }
             if (vm.model.modeOfPayment && vm.model.instrumentNo) {
                 vm.model.paymentStatus = "Paid";

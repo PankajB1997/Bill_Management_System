@@ -39,36 +39,21 @@
         </div>
 
         <hr>
-        <ul>
-            <li>H.O. Code</li>
-            <li><select class="form-control" name="tempHoCode" ng-model="vm.tempHoCode" ng-options="item.label as item.label disable when item.disabled for item in vm.hoCodes"></select></li>
-        </ul>
-        <ul>
-            <li>Vendor Item Code</li>
-            <li><select class="form-control" name="tempVendorItemCode" ng-model="vm.tempVendorItemCode" ng-options="item.label as item.label disable when item.disabled for item in vm.vendorItemCodes"></select></li>
-        </ul>
-        <ul>
-            <li>Product</li>
-            <li><select class="form-control" name="tempProduct" ng-model="vm.tempProduct" ng-options="item.label as item.label disable when item.disabled for item in vm.itemDescriptions"></select></li>
-        </ul>
-        <ul>
-            <li>Quantity</li>
-            <li><input type="text" ng-model="vm.tempQuantity" /></li>
-        </ul>
-        <ul>
-            <li>Billing Unit</li>
-            <li><select class="form-control" name="tempBillingUnit" ng-model="vm.tempBillingUnit">
-                <option></option>
-                <option>BOX</option>
-            </select></li>
-        </ul>
-        <ul>
-            <li>Rate</li>
-            <li><input type="text" ng-model="vm.tempRate" /></li>
-        </ul>
-        <ul>
-            <li><button type="button" class="btn btn-secondary" ng-click="vm.addRow()">Add Product</button></li>
-        </ul>
+        <dl class="dl-horizontal">
+                <dt>H.O. Code</dt>
+                <dd><select class="form-control" name="tempHoCode" ng-model="vm.tempHoCode" ng-options="item.label as item.label disable when item.disabled for item in vm.hoCodes"></select></dd>
+                <dt>Vendor Item Code</dt>
+                <dd><select class="form-control" name="tempVendorItemCode" ng-model="vm.tempVendorItemCode" ng-options="item.label as item.label disable when item.disabled for item in vm.vendorItemCodes"></select></dd>
+                <dt>Product</dt>
+                <dd><select class="form-control" name="tempProduct" ng-model="vm.tempProduct" ng-options="item.label as item.label disable when item.disabled for item in vm.itemDescriptions"></select></dd>
+                <dt>Quantity</dt>
+                <dd><input type="text" ng-model="vm.tempQuantity" /></dd>
+                <dt>Billing Unit</dt>
+                <dd><select class="form-control" name="billingUnit" ng-model="vm.tempBillingUnit" ng-options="item.label as item.label disable when item.disabled for item in vm.billingUnits"></select></dd>
+                <dt>Rate</dt>
+                <dd><input type="text" ng-model="vm.tempRate" /></dd>
+                <dd><button type="button" class="btn btn-secondary" ng-click="vm.addRow()">Add Product</button></dd>
+        </dl>
         <table class="table table-hover">
             <tr>
                 <th>No.</th>
@@ -100,7 +85,19 @@
         <button type="button" class="btn btn-secondary" ng-click="vm.removeRow()">Remove Selected Items</button>
         <hr>
 
+        <div class="form-group" ng-class="{ 'has-error': form.modeOfPayment.$invalid }">
+            <label for="modeOfPayment" class="control-label col-md-2">Mode of Payment</label>
+            <div class="col-md-10">
+                <input type="text" name="modeOfPayment" class="form-control" ng-model="vm.model.modeOfPayment" />
+            </div>
+        </div>
 
+        <div class="form-group" ng-class="{ 'has-error': form.instrumentNo.$invalid }">
+            <label for="instrumentNo" class="control-label col-md-2">Instrument No.</label>
+            <div class="col-md-10">
+                <input type="text" name="instrumentNo" class="form-control" ng-model="vm.model.instrumentNo" />
+            </div>
+        </div>
 
         <hr>
 
