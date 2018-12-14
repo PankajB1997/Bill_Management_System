@@ -9,6 +9,11 @@
         var vm = this;
 
         vm.model = {};
+        vm.model.items = [];
+
+        repository.getGSTRate().then(function (res) {
+            vm.gstRate = parseFloat(res.data.gstRate);
+        });
 
         vm.save = save;
         vm.cancel = cancel;
@@ -18,7 +23,7 @@
         vm.hoCodes = [];
         vm.itemDescriptions = [];
         vm.billTos = [
-            { label: "---Select---", disabled: true },
+            { label: "", disabled: true },
             { label: "Vision World Pvt. Ltd." },
             { label: "Specs World Pvt. Ltd." },
             { label: "The Himalaya Optical Company" },
@@ -45,7 +50,7 @@
             for (var val in vm.vendorNames) {
                 vm.vendorNames[val] = { label: vm.vendorNames[val] };
             }
-            vm.vendorNames.unshift({ label: "---Select---", "disabled": true });
+            vm.vendorNames.unshift({ label: "", "disabled": true });
             vm.model.vendorName = vm.vendorNames[0].label;
             vm.vendorItemCodes.sort();
             for (var val in vm.vendorItemCodes) {
@@ -68,9 +73,56 @@
             vm.model.billTo = vm.billTos[0].label;
         });
 
+        vm.addRow = function () {
+            var find = {};
+            if (vm.tempHoCode) {
+                find.hoCode = vm.tempHoCode;
+            }
+            else if (vm.tempVendorItemCode) {
+                find.vendorItemCode = vm.tempVendorItemCode;
+            }
+            else {
+                find.itemDescription = vm.tempProduct;
+            }
+            var rateAsPerDatabase = 0.0;
+            repository.getOriginalItemRate(find).then(function(result) {
+                rateAsPerDatabase = parseFloat(result.data[0].negotiatedRate);
+            });
+
+            vm.model.items.push({
+                itemDescription: vm.tempProduct,
+                quantity: parseFloat(vm.tempQuantity),
+                billingUnit: vm.tempBillingUnit,
+                rate: parseFloat(vm.tempRate),
+                billing: parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate),
+                gst: (vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)),
+                billAmount: (parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate)) + ((vm.gstRate/100.0)*(parseFloat(vm.tempQuantity)*parseFloat(vm.tempRate))),
+                rateDifference: parseFloat(vm.tempRate) - rateAsPerDatabase,
+                claimAmount: parseFloat(vm.tempQuantity) * (parseFloat(vm.tempRate) - parseFloat(rateAsPerDatabase)),
+                remove: false
+            });
+
+            console.log(vm.model.items);
+        }
+
+        vm.removeRow = function () {
+            var retainedItems = [];
+            for(var product in vm.model.items) {
+                if (vm.model.items[product].remove == false) {
+                    retainedItems.push(vm.model.items[product]);
+                }
+            }
+            vm.model.items = retainedItems;
+        }
+
         function save() {
-            // TODO: logic for item and payment fields
-            if (vm.model.modeOfPayment || vm.model.instrumentNo) {
+            vm.totalBillAmount = 0.0;
+            vm.totalClaimAmount = 0.0;
+            for(var item in vm.model.items) {
+                vm.totalBillAmount += vm.model.items[item].billAmount;
+                vm.totalClaimAmount += vm.model.items[item].claimAmount;
+            }
+            if (vm.model.modeOfPayment && vm.model.instrumentNo) {
                 vm.model.paymentStatus = "Paid";
             }
             else {

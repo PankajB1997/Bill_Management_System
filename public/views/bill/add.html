@@ -38,6 +38,72 @@
             </div>
         </div>
 
+        <hr>
+        <ul>
+            <li>H.O. Code</li>
+            <li><select class="form-control" name="tempHoCode" ng-model="vm.tempHoCode" ng-options="item.label as item.label disable when item.disabled for item in vm.hoCodes"></select></li>
+        </ul>
+        <ul>
+            <li>Vendor Item Code</li>
+            <li><select class="form-control" name="tempVendorItemCode" ng-model="vm.tempVendorItemCode" ng-options="item.label as item.label disable when item.disabled for item in vm.vendorItemCodes"></select></li>
+        </ul>
+        <ul>
+            <li>Product</li>
+            <li><select class="form-control" name="tempProduct" ng-model="vm.tempProduct" ng-options="item.label as item.label disable when item.disabled for item in vm.itemDescriptions"></select></li>
+        </ul>
+        <ul>
+            <li>Quantity</li>
+            <li><input type="text" ng-model="vm.tempQuantity" /></li>
+        </ul>
+        <ul>
+            <li>Billing Unit</li>
+            <li><select class="form-control" name="tempBillingUnit" ng-model="vm.tempBillingUnit">
+                <option></option>
+                <option>BOX</option>
+            </select></li>
+        </ul>
+        <ul>
+            <li>Rate</li>
+            <li><input type="text" ng-model="vm.tempRate" /></li>
+        </ul>
+        <ul>
+            <li><button type="button" class="btn btn-secondary" ng-click="vm.addRow()">Add Product</button></li>
+        </ul>
+        <table class="table table-hover">
+            <tr>
+                <th>No.</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Billing Unit</th>
+                <th>Rate</th>
+                <th>Billing</th>
+                <th>GST</th>
+                <th>Bill Amount</th>
+                <th>Rate Difference</th>
+                <th>Claim Amount</th>
+                <th>Remove?</th>
+            </tr>
+            <tr ng-repeat="product in vm.model.items">
+                <td ng-click="$parent.selected = $index">{{ $index+1 }}</td>
+                <td>{{ product.itemDescription }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.billingUnit }}</td>
+                <td>{{ product.rate }}</td>
+                <td>{{ product.billing }}</td>
+                <td>{{ product.gst }}</td>
+                <td>{{ product.billAmount }}</td>
+                <td>{{ product.rateDifference }}</td>
+                <td>{{ product.claimAmount }}</td>
+                <td><input type="checkbox" ng-model="product.remove"/></td>
+            </tr>
+        </table>
+        <button type="button" class="btn btn-secondary" ng-click="vm.removeRow()">Remove Selected Items</button>
+        <hr>
+
+
+
+        <hr>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" ng-disabled="!form.$valid" class="btn btn-primary" />

@@ -146,7 +146,21 @@ function api (app) {
     });
 
     app.get("/api/master", function (request, response) {
-        db.billsMaster.find().sort({ "hoCode": 1 }, function (err, docs) {
+        var find = {};
+
+        if (request.query.hoCode) {
+            find.hoCode = new RegExp(request.query.hoCode, "i");
+        }
+
+        if (request.query.vendorItemCode) {
+            find.vendorItemCode = new RegExp(request.query.vendorItemCode, "i");
+        }
+
+        if (request.query.itemDescription) {
+            find.itemDescription = new RegExp(request.query.itemDescription, "i");
+        }
+        
+        db.billsMaster.find(find).sort({ "hoCode": 1 }, function (err, docs) {
             response.json(docs);
         });
     });

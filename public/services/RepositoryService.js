@@ -20,6 +20,7 @@
         svc.addNewMasterData = addNewMasterData;
         svc.deleteMasterData = deleteMasterData;
         svc.updateMasterData = updateMasterData;
+        svc.getOriginalItemRate = getOriginalItemRate;
         svc.getGSTRate = getGSTRate;
         svc.updateGSTRate = updateGSTRate;
 
@@ -92,6 +93,28 @@
         function updateMasterData(id, model) {
             return $http.put([apiUrl, "master", id].join("/"), model);
         };
+
+        function getOriginalItemRate(fields) {
+            var queryString = [];
+
+            if (fields.hoCode) {
+                queryString.push("hoCode=" + fields.hoCode);
+            }
+
+            if (fields.vendorItemCode) {
+                queryString.push("vendorItemCode=" + fields.vendorItemCode);
+            }
+
+            if (fields.itemDescription) {
+                queryString.push("itemDescription=" + fields.itemDescription);
+            }
+
+            var url = [apiUrl, "master"].join("/");
+
+            var fullUrl = queryString.length == 0 ? url : [url, "?", queryString.join("&")].join("");
+
+            return $http.get(fullUrl);
+        }
 
         function getGSTRate() {
             return $http.get([apiUrl, "gst"].join("/"));
