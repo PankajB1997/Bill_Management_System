@@ -129,8 +129,16 @@
                 vm.model.totalBillAmount += vm.model.items[item].billAmount;
                 vm.model.totalClaimAmount += vm.model.items[item].claimAmount;
             }
-            if (vm.model.modeOfPayment && vm.model.instrumentNo) {
+            if (vm.model.modeOfPayment || vm.model.instrumentNo) {
                 vm.model.paymentStatus = "Paid";
+                if (vm.model.modeOfPayment){}
+                else {
+                    vm.model.modeOfPayment = "";
+                }
+                if (vm.model.instrumentNo){}
+                else {
+                    vm.model.instrumentNo = "";
+                }
             }
             else {
                 vm.model.paymentStatus = "Unpaid";
