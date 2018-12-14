@@ -8,16 +8,16 @@ Some screenshots:
 
 1. Home Page
 
-TBA
+<img src="img/1.jpg"><br>
 
 2. Add New Bill
 
-TBA
+<img src="img/2.jpg"><br>
 
 3. Viewing Details of an Existing Bill
 
-TBA
+<img src="img/3.jpg"><br>
 
 4. Adding Master Data to facilitate Bill Management
 
-TBA
+<img src="img/4.jpg"><br>
